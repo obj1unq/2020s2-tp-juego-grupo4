@@ -1,5 +1,6 @@
 import wollok.game.*
 
+
 object pepita {
 
 	method position() {

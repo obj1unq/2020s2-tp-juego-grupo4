@@ -1,8 +1,22 @@
 import wollok.game.*
-import pepita.*
+import jugador.*
 
 program game {
-	game.title("Juego Base")
-	game.addVisual(pepita)
+	game.title("Autos Locos")
+	game.height(10)
+	game.width(6)//uso 6 para la pista
+	//game.ground("suelo.png")
+	game.boardGround("background.jpg")
+	
+	game.addVisualIn(personaje, personaje.position())
+	
+	//movimientos
+	keyboard.left().onPressDo({personaje.mover(-1)})
+    keyboard.right().onPressDo({personaje.mover(1)})
+	
+	
+	
+	
+	
 	game.start()
 }

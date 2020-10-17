@@ -4,7 +4,7 @@ import jugador.*
 program game {
 	game.title("Autos Locos")
 	game.height(10)
-	game.width(6)//uso 6 para la pista
+	game.width(10)//uso 6 para la pista
 	//game.ground("suelo.png")
 	game.boardGround("background.jpg")
 	

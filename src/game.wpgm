@@ -1,5 +1,6 @@
 import wollok.game.*
 import jugador.*
+import indicadores.*
 
 program game {
 	game.title("Autos Locos")
@@ -7,13 +8,18 @@ program game {
 	game.width(10)//uso 6 para la pista
 	//game.ground("suelo.png")
 	game.boardGround("background.jpg")
+	var indicadorVida = new Indicador(nivelMin = 0, nivelMax = 12, image = "pepita.png" , tiempo = 0)
 	
+	game.addVisualIn(tablero, tablero.position())
 	game.addVisualIn(personaje, personaje.position())
+	game.addVisualIn(indicadorVida, game.at(7,8))
+	
 	
 	//movimientos
 	keyboard.left().onPressDo({personaje.mover(-1)})
     keyboard.right().onPressDo({personaje.mover(1)})
 	
+	game.onTick(1000,"actualizacionIndicadores",{indicadorVida.muestraValores(personaje)})
 	
 	
 	

@@ -1,7 +1,8 @@
 import wollok.game.*
+import indicadores.*
 
 object personaje {
-	var property corazones = 0
+	var property corazones = 12
 	var property position = game.at(1,0)//uso 3 para pruebas solo con pista. Debe ir 5
 	var property image = "jugador.png"
 	
@@ -13,6 +14,7 @@ object personaje {
 		self.redibujaPersonaje()
 	}
 	
+	method energia(){ return corazones }
 	
 	method redibujaPersonaje(){
 		game.removeVisual(self)

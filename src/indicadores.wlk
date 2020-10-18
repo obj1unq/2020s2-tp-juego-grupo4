@@ -9,16 +9,16 @@ class Indicador {
 	var property tiempo = null
 	var property nivelActual = null
 	
-	method incrementaEnergia(personaje){ personaje.modificaEnergia(1)}
-	method decrementaEnergia(personaje){ personaje.modificaEnergia(-1)}
+	method incrementaEnergia(personajePpal){ personajePpal.modificaEnergia(1)}
+	method decrementaEnergia(personajePpal){ personajePpal.modificaEnergia(-1)}
 	
 		
-	method excedeNiveles(personaje){ 
-		const proximoNivel = personaje.nivelActual() + 1 
+	method excedeNiveles(personajePpal){ 
+		const proximoNivel = personajePpal.nivelActual() + 1 
 		return proximoNivel.between(nivelMin,nivelMax)
 	}
-	method muestraValores(personaje){
-		game.say(self, personaje.energia().toString())
+	method muestraValores(personajePpal){
+		game.say(self, personajePpal.energia().toString())
 		
 	}
 	

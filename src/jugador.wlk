@@ -3,7 +3,7 @@ import indicadores.*
 
 object personaje {
 	var property corazones = 12
-	var property position = game.at(1,0)//uso 3 para pruebas solo con pista. Debe ir 5
+	var property position = game.at(3,0)//uso 3 para pruebas solo con pista. Debe ir 5
 	var property image = "jugador.png"
 	
 	method mover(sentido){ 
@@ -19,5 +19,15 @@ object personaje {
 	method redibujaPersonaje(){
 		game.removeVisual(self)
 		game.addVisualIn(self,position)	 
+	}
+	
+	method quitarEnergia(cantidad){ corazones = corazones - cantidad }
+	
+	method hayChoque(){
+		const obstaculo = self.colliders(self.position())
+		if(!obstaculo.isEmpty()){
+			obstaculo.impacto(self)
+		}
+		
 	}
 }

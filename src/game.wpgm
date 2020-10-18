@@ -1,6 +1,7 @@
 import wollok.game.*
 import jugador.*
 import indicadores.*
+import obstaculosTest.*
 
 program game {
 	game.title("Autos Locos")
@@ -13,7 +14,7 @@ program game {
 	game.addVisualIn(tablero, tablero.position())
 	game.addVisualIn(personaje, personaje.position())
 	game.addVisualIn(indicadorVida, game.at(7,8))
-	
+	game.addVisualIn(obstaculoAuto,obstaculoAuto.position())
 	
 	//movimientos
 	keyboard.left().onPressDo({personaje.mover(-1)})

@@ -9,19 +9,24 @@ program game {
 	game.width(10)//uso 6 para la pista
 	//game.ground("suelo.png")
 	game.boardGround("background.jpg")
-	var indicadorVida = new Indicador(nivelMin = 0, nivelMax = 12, image = "pepita.png" , tiempo = 0)
+	//var indicadorVida = new Indicador(nivelMin = 0, nivelMax = 12, image = "nro1.png" , tiempo = 0)
+		
 	
 	game.addVisualIn(tablero, tablero.position())
 	game.addVisualIn(personaje, personaje.position())
-	game.addVisualIn(indicadorVida, game.at(7,8))
+	game.addVisualIn(reloj, reloj.position())
+	game.addVisualIn(timerLSD, timerLSD.position())
+	game.addVisualIn(timerMSD, timerMSD.position())
+
+	
 	game.addVisualIn(obstaculoAuto,obstaculoAuto.position())
 	
 	//movimientos
 	keyboard.left().onPressDo({personaje.mover(-1)})
     keyboard.right().onPressDo({personaje.mover(1)})
 	
-	game.onTick(1000,"actualizacionIndicadores",{indicadorVida.muestraValores(personaje)})
-	
+	game.schedule(1000,{})
+	game.onTick(1000,"tiempoLSD",{timerLSD.tiempo()})
 	
 	
 	

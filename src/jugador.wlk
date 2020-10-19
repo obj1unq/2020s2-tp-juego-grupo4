@@ -21,12 +21,25 @@ object personaje {
 		game.addVisualIn(self,position)	 
 	}
 	
-	method quitarEnergia(cantidad){ corazones = corazones - cantidad }
+	method quitarEnergia(cantidad){ 
+		corazones = corazones - cantidad
+	}
 	
-	method hayChoque(){
-		const obstaculo = self.colliders(self.position())
-		if(!obstaculo.isEmpty()){
-			obstaculo.impacto(self)
-		}
+	
+	method impactoA(obstaculoImpactado){
+		self.quitarEnergia(obstaculoImpactado.energiaQueQuita())
+		game.say(self,corazones.toString())
+		3.times({self.redibujaPersonaje()})
+		obstaculoImpactado.borrarObstaculo()
+		self.actualizarTablero()
+	}
+	
+	
+	method actualizarTablero(){
+		//actualizar vidas en el tablero
+	}
+	
+	method parpadear(){
+		//parpadeo del auto luego del impacto
 	}
 }

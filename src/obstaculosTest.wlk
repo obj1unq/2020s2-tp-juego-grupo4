@@ -2,12 +2,14 @@ import indicadores.*
 import jugador.* 
 import wollok.game.*
 
-object obstaculoAuto {
-	const energiaQueQuita = 4
+class Obstaculo{
+	var property energiaQueQuita = null
 	
-	var property image="auto_rojo.png"
-	var property position = game.at(1,0)
+	var property image = null
+	var property position = null //referencia : game.at(1,0)
 	
-	method impacto(personajePpal){ personajePpal.quitarEnergia(energiaQueQuita) }
+	method impacto(personajePpal){ personajePpal.choque(self) }
+	
+	method borrarObstaculo(){ game.removeVisual(self)}
+	
 }
-

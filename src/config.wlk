@@ -6,6 +6,10 @@ import obstaculosTest.*
 object inicioDeJuego {
 
 	method iniciar() {
+		//Declaracion de Objetos
+		var obstaculoAuto = new Obstaculo(energiaQueQuita=4 , image="auto_rojo.png", position=game.at(1,0))
+		
+		//Visuales
 		game.addVisualIn(tablero, tablero.position())
 		game.addVisualIn(personaje, personaje.position())
 		game.addVisualIn(reloj, reloj.position())
@@ -32,9 +36,12 @@ object config {
 	}
 	
 	method configurarColisiones() {
-		game.onCollideDo(personaje, { obstaculo =>
-			obstaculo.teEncontro(personaje)
-		})
+		game.onCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
 	}
 
+	
 }
+
+
+
+

@@ -34,7 +34,7 @@ object reloj{
 	var property image = "tiempo.png"
 }
 
-object timerMSD{
+object decena{
 	var property position = game.at(8,4)
 	var property image = "nro6.png"
 	const tiempoMax = 6
@@ -50,30 +50,40 @@ object timerMSD{
 }
 
 
-object timerLSD{
+object unidad{
 	var property position = game.at(9,4)
 	var property image = "nro0.png"
 	const tiempoMax = 9
 	var property tiempoContador = 0
 
 	method tiempo(){
-		if(game.hasVisual(timerLSD) && game.hasVisual(timerMSD)){
-			game.removeVisual(timerLSD)
-			game.removeVisual(timerMSD)
+		if(game.hasVisual(unidad) && game.hasVisual(decena)){
+			game.removeVisual(unidad)
+			game.removeVisual(decena)
 		}
 		if(tiempoContador >= 0){
 			
 			image = "nro" + tiempoContador.toString() + ".png"
 			tiempoContador--
 		}else{
-			timerMSD.tiempo()		
+			decena.tiempo()		
 			tiempoContador = 9
 		}
 
-		game.addVisualIn(timerMSD,timerMSD.position())
+		game.addVisualIn(decena,decena.position())
 		game.schedule(100,{})
 		game.addVisualIn(self,position)
 	}
 	
 }
 
+object unidadVida{
+	var property image = "nro1.png"
+	var property position = game.at(9,8)
+}
+
+object decenaVida{
+	var property image = "nro1.png"
+	var property position = game.at(8,8)
+	
+}

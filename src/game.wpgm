@@ -15,8 +15,12 @@ program game {
 	game.addVisualIn(tablero, tablero.position())
 	game.addVisualIn(personaje, personaje.position())
 	game.addVisualIn(reloj, reloj.position())
-	game.addVisualIn(timerLSD, timerLSD.position())
-	game.addVisualIn(timerMSD, timerMSD.position())
+	game.addVisualIn(unidad, unidad.position())
+	game.addVisualIn(decena, decena.position())
+	
+	game.addVisualIn(unidadVida,unidadVida.position())
+	game.addVisualIn(decenaVida,decenaVida.position())
+	
 
 	
 	game.addVisualIn(obstaculoAuto,obstaculoAuto.position())
@@ -26,7 +30,7 @@ program game {
     keyboard.right().onPressDo({personaje.mover(1)})
 	
 	game.schedule(1000,{})
-	game.onTick(1000,"tiempoLSD",{timerLSD.tiempo()})
+	game.onTick(1000,"tiempoLSD",{unidad.tiempo()})
 	
 	
 	

@@ -2,6 +2,8 @@ import wollok.game.*
 import jugador.*
 import indicadores.*
 import obstaculosTest.*
+import config.*
+
 
 program game {
 	game.title("Autos Locos")
@@ -11,28 +13,7 @@ program game {
 	game.boardGround("background.jpg")
 	//var indicadorVida = new Indicador(nivelMin = 0, nivelMax = 12, image = "nro1.png" , tiempo = 0)
 		
-	
-	game.addVisualIn(tablero, tablero.position())
-	game.addVisualIn(personaje, personaje.position())
-	game.addVisualIn(reloj, reloj.position())
-	game.addVisualIn(unidad, unidad.position())
-	game.addVisualIn(decena, decena.position())
-	
-	game.addVisualIn(unidadVida,unidadVida.position())
-	game.addVisualIn(decenaVida,decenaVida.position())
-	
-
-	
-	game.addVisualIn(obstaculoAuto,obstaculoAuto.position())
-	
-	//movimientos
-	keyboard.left().onPressDo({personaje.mover(-1)})
-    keyboard.right().onPressDo({personaje.mover(1)})
-	
-	game.schedule(1000,{})
-	game.onTick(1000,"tiempoLSD",{unidad.tiempo()})
-	
-	
+	inicioDeJuego.iniciar()
 	
 	game.start()
 }

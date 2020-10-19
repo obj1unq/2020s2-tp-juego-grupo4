@@ -28,6 +28,5 @@ object personaje {
 		if(!obstaculo.isEmpty()){
 			obstaculo.impacto(self)
 		}
-		
 	}
 }

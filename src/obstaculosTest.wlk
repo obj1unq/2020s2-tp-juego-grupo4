@@ -10,3 +10,4 @@ object obstaculoAuto {
 	
 	method impacto(personajePpal){ personajePpal.quitarEnergia(energiaQueQuita) }
 }
+

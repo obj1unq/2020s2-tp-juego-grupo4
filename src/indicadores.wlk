@@ -62,6 +62,7 @@ object timerLSD{
 			game.removeVisual(timerMSD)
 		}
 		if(tiempoContador >= 0){
+			
 			image = "nro" + tiempoContador.toString() + ".png"
 			tiempoContador--
 		}else{

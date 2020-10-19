@@ -19,9 +19,11 @@ object inicioDeJuego {
 		game.addVisualIn(decenaVida,decenaVida.position())
 		game.addVisualIn(obstaculoAuto,obstaculoAuto.position())
 		config.configurarTeclas()
-		config.configurarColisiones()
-		game.schedule(1000,{})
+		//config.configurarColisiones()
+		//game.schedule(1000,{})
 		game.onTick(1000,"tiempoLSD",{unidad.tiempo()})
+		game.onCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
+		//game.colliders(personaje).first().impacto(obstaculo)
 	}
 
 }
@@ -35,9 +37,10 @@ object config {
     	keyboard.right().onPressDo({personaje.mover(1)})
 	}
 	
-	method configurarColisiones() {
-		game.onCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
-	}
+//	method configurarColisiones() {
+//		game.onCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
+//		
+//	}
 
 	
 }

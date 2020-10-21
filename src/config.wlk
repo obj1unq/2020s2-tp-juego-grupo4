@@ -20,10 +20,12 @@ object inicioDeJuego {
 		game.addVisualIn(obstaculoAuto,obstaculoAuto.position())
 		config.configurarTeclas()
 		//config.configurarColisiones()
-		//game.schedule(1000,{})
 		game.onTick(1000,"tiempoLSD",{unidad.tiempo()})
-		game.onCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
-		//game.colliders(personaje).first().impacto(obstaculo)
+		game.onCollideDo(personaje, { obstaculo => obstaculo.impactoA(personaje)})
+		//game.onCollideDo(personaje, { obs => personaje.impactoA(obs)})
+		//ANDA//game.onCollideDo(obstaculoAuto,{personajePpal => personajePpal.impactoA(obstaculoAuto)})
+		//game.whenCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
+		//game.whenCollideDo(obstaculoAuto, { per => per.impactoA(obstaculoAuto)})	
 	}
 
 }

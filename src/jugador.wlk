@@ -27,11 +27,13 @@ object personaje {
 	
 	
 	method impactoA(obstaculoImpactado){
-		self.quitarEnergia(obstaculoImpactado.energiaQueQuita())
-		game.say(self,corazones.toString())
-		3.times({self.redibujaPersonaje()})
-		obstaculoImpactado.borrarObstaculo()
-		self.actualizarTablero()
+		//self.quitarEnergia(obstaculoImpactado.energiaQueQuita())
+		//game.say(self,corazones.toString())//debug
+		//3.times({self.redibujaPersonaje()})
+		//obstaculoImpactado.borrarObstaculo()
+		//self.actualizarTablero()
+		var colisionCon = game.allVisuals().filter({colision=>colision.position()==self.position()})
+		game.say(colisionCon,self.corazones().toString())//debug
 	}
 	
 	

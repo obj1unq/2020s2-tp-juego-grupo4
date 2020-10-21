@@ -5,12 +5,15 @@ import obstaculosTest.*
 import config.*
 
 
+
 program game {
 	game.title("Autos Locos")
 	game.height(10)
 	game.width(10)//uso 6 para la pista
 	game.boardGround("background.jpg")
-		
+	game.onTick(3000, "NUEVO_OBSTACULO", { generadorObstaculos.nuevoObstaculo() })
+	game.onTick(3000, "OBSTACULO_AVANZA", { generadorObstaculos.avanzar() })
+	
 	inicioDeJuego.iniciar()
 	
 	

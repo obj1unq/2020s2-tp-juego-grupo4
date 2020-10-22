@@ -17,7 +17,7 @@ class Obstaculo{
 	}
 	method borrarObstaculo(){ game.removeVisual(self)}
 	
-	
+//(game.at(self.position().x(), self.position().y().down(1))	
 	
 }
 
@@ -58,6 +58,8 @@ object generadorObstaculos{
 	const obstaculosGenerados = #{}
     const factoriesObstaculos = [ obstaculoFactory , barrilesFactory] 
     
+    
+    
 	method nuevoObstaculo() {
 		const factoryElegida = factoriesObstaculos.get((0..factoriesObstaculos.size() - 1).anyOne() ) 
 		const nuevoObstaculo = factoryElegida.construirObstaculo()
@@ -66,7 +68,8 @@ object generadorObstaculos{
 		obstaculosGenerados.add(nuevoObstaculo)	
 	}
 	method avanzar(){
-		obstaculosGenerados.forEach( {objetoCreado => objetoCreado.position().down(1)})
+		obstaculosGenerados.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
+		//FUNJCIONA obstaculosGenerados.forEach( {objetocreado => objetocreado.position(game.at(objetocreado.position().x(), objetocreado.position().y() -1 ))})
 	}
 	
 	
@@ -76,19 +79,13 @@ object randomizer {
 		
 	method position() {
 		return 	game.at( 
-					(1 .. game.width() - 4 ).anyOne(),
-					(9..  game.height() - 1).anyOne()
-		) 
+					(1 .. game.width() - 4 ).anyOne(), game.height() - 1)
+					//(9..  game.height() - 1).anyOne()
+		//) 
 	}
 	
 	method emptyPosition() {
-		const position = self.position()
-		if(game.getObjectsIn(position).isEmpty()) {
-			return position	
-		}
-		else {
-			return self.emptyPosition()
-		}
+		//para implementar, buscar celda libre para ubicar objeto
 	}
 	
 }

@@ -1,68 +1,77 @@
 import indicadores.*
 import jugador.* 
 import wollok.game.*
+import ayuda.*
 
-class Obstaculo{
-	
-	var property energiaQueQuita = null
-	
-	var property image =  null
+class ObjetoEnTablero{
 	
 	var property position = null //referencia : game.at(1,0)
 		
+	var property image = null
+	
 	method borrarObstaculo(){ game.removeVisual(self)}
 	
-	//(game.at(self.position().x(), self.position().y().down(1))	
+}
+
+
+class Obstaculo inherits ObjetoEnTablero{
+	
+	var property energiaQueQuita = null	
 	
 }
 
-class Autos inherits Obstaculo{
+
+class Auto inherits Obstaculo {
 	
 	method impacto(personajePpal){ personajePpal.impactoA(self) }
-	
+
 }
 
-class Barriles inherits Obstaculo{
-	
+
+class Barril inherits Obstaculo {
+		
 	method impacto(personajePpal){ personajePpal.impactoA(self) }
 	
 }
 
 object autosFactory {
-	
-   var property position = null
-	
+		
    method construirObstaculo() {
-   		return new Autos(position=randomizer.position())
+   		return new Auto(position=randomizer.position(), energiaQueQuita = 2, image = "auto_rojo.png")
    }	
    
 }
 
 object barrilesFactory {
-	
-   var property position = null
-	
+		
    method construirObstaculo() {
-   		return new Barriles(position=randomizer.position())
+   		return new Barril(position=randomizer.position(), energiaQueQuita = 1, image = "barril.png")
    }	
    
 }
 
 object generadorObstaculos{ 
-	const obstaculosGenerados = #{}
-    const factoriesObstaculos = [ autosFactory , barrilesFactory] 
+	const property obstaculosGenerados = []
+	const property ayudasGeneradas = []
+	const property factoriesObstaculos = [ autosFactory , barrilesFactory] 
+    const property factoriesAyudas = [corazonesFactory,personasFactory]
     
-    method nuevoObstaculo() {
-		const factoryElegida = factoriesObstaculos.get((0..factoriesObstaculos.size() - 1).anyOne() ) 
+    method nuevoObstaculo(lista) {
+		const factoryElegida = lista.get((0..lista.size() - 1).anyOne() ) 
 		const nuevoObstaculo = factoryElegida.construirObstaculo()
 		
 		game.addVisual(nuevoObstaculo)
-		obstaculosGenerados.add(nuevoObstaculo)	
-	}
+		
+		if (lista == factoriesObstaculos){
+			obstaculosGenerados.add(nuevoObstaculo)	
+		} else {
+			ayudasGeneradas.add(nuevoObstaculo)	
+		}
+		
+	}	
 	
-	
-	method avanzar(){
-		obstaculosGenerados.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
+	method avanzar(lista){
+		lista.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
 	}
 }
 

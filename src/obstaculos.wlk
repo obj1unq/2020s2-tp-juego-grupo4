@@ -1,7 +1,7 @@
 import indicadores.*
 import jugador.* 
 import wollok.game.*
-import ayuda.*
+import ayudas.*
 
 class ObjetoEnTablero{
 	
@@ -9,7 +9,7 @@ class ObjetoEnTablero{
 		
 	var property image = null
 	
-	method borrarObstaculo(){ game.removeVisual(self)}
+	method borrarObstaculo(){ game.removeVisual(self) }
 	
 }
 

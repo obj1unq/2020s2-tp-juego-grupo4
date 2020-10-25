@@ -1,7 +1,7 @@
 import wollok.game.*
 import indicadores.*
 import jugador.*
-import obstaculosTest.*
+import obstaculos.*
 
 object inicioDeJuego {
 
@@ -15,17 +15,11 @@ object inicioDeJuego {
 		game.addVisual(reloj)
 		game.addVisual(unidad)
 		game.addVisual(decena)
-		//game.addVisual(unidadVida)
-		//game.addVisual(decenaVida)
 		game.addVisual(obstaculoAuto)
 		config.configurarTeclas()
-		//config.configurarColisiones()
 		game.onTick(1000,"tiempo",{unidad.tiempo()})
 		game.onCollideDo(personaje, { obstaculo => obstaculo.impactoA(personaje)})
-		//game.onCollideDo(personaje, { obs => personaje.impactoA(obs)})
-		//ANDA//game.onCollideDo(obstaculoAuto,{personajePpal => personajePpal.impactoA(obstaculoAuto)})
-		//game.whenCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
-		//game.whenCollideDo(obstaculoAuto, { per => per.impactoA(obstaculoAuto)})	
+		
 	}
 
 }
@@ -38,13 +32,6 @@ object config {
 		keyboard.left().onPressDo({personaje.mover(-1)})
     	keyboard.right().onPressDo({personaje.mover(1)})
 	}
-	
-//	method configurarColisiones() {
-//		game.onCollideDo(personaje, { obstaculo => personaje.impactoA(obstaculo)})
-//		
-//	}
-
-	
 }
 
 

@@ -1,7 +1,7 @@
 import wollok.game.*
 import indicadores.*
 import jugador.*
-import obstaculosTest.*
+import obstaculos.*
 
 class Ayuda inherits ObjetoEnTablero{
 	

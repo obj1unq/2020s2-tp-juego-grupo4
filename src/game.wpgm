@@ -1,7 +1,7 @@
 import wollok.game.*
 import jugador.*
 import indicadores.*
-import obstaculosTest.*
+import obstaculos.*
 import config.*
 
 
@@ -11,8 +11,8 @@ program game {
 	game.height(10)
 	game.width(10)//uso 6 para la pista
 	game.boardGround("background.jpg")
-	game.onTick(3000, "NUEVO_OBSTACULO", { generadorObstaculos.nuevoObstaculo() })
-	game.onTick(3000, "OBSTACULO_AVANZA", { generadorObstaculos.avanzar() })
+	game.onTick(3000, "NUEVO_OBSTACULO", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesObstaculos()) })
+	game.onTick(3000, "OBSTACULO_AVANZA", { generadorObstaculos.avanzar(generadorObstaculos.obstaculosGenerados()) })
 	
 	inicioDeJuego.iniciar()
 	

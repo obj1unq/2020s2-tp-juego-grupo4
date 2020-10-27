@@ -3,40 +3,38 @@ import indicadores.*
 
 object personaje {
 	var property corazones = 12
-	var property tiempoPlus = 0
+	var property tiempoExtra = 0
 	var property position = game.at(3,0)//uso 3 para pruebas solo con pista. Debe ir 5
-	var property direccion = null
 	var nroImagen = 1
-	var property image = "jugador"+nroImagen.toString()+".png"
+	const puntajeXCorazon = 10
+	const puntajeXTiempo = 5
 	
-	method mover(sentido){ 
-		direccion = sentido
-		const desplazamiento = self.position().x() + sentido
-		if(desplazamiento.between(1,game.width() - 4))
-			position=game.at(desplazamiento, self.position().y())
-	}
-	
-	method moverDeMas(){
-		self.mover(direccion)
-	}
+
 	
 	method energia(){ return corazones }
 	
-	method redibujaPersonaje(){
-		if (nroImagen == 0){ nroImagen = 1} else{nroImagen = 0}
+	method redibujaPersonaje(){ if (nroImagen == 0){ nroImagen = 1}else{nroImagen = 0} }
+
+	method mover(sentido){ 
+		const desplazamiento = self.position().x() + sentido
+		if(desplazamiento.between(1,game.width() - 4))
+			position=game.at(desplazamiento, self.position().y())
+			game.say(self,self.position().toString())
+		3.times({self.redibujaPersonaje()})
 	}
 	
-	method quitarEnergia(cantidad){ 
-		corazones = corazones - cantidad
-	}
+	method quitarEnergia(cantidad){ corazones = corazones - cantidad }
 	
-	
-	method actualizarTablero(){
+	method image(){ return "jugador" + nroImagen.toString() + ".png"
 		
-		//actualizar vidas en el tablero
 	}
 	
-	method parpadear(){
-		//parpadeo del auto luego del impacto
+	method impactoA(obstaculoImpactado){
+//		3.times({self.redibujaPersonaje()})
+		const colisionCon = game.allVisuals().filter({colision=>colision.position()==self.position()})
+		game.say(colisionCon,self.corazones().toString())//debug
 	}
+	method puntajeFinal(){ return self.conteoPuntos(corazones,puntajeXCorazon) + self.conteoPuntos(tiempoExtra,puntajeXTiempo)}
+	method conteoPuntos(puntosAcumulados,conversion){ return puntosAcumulados * conversion }
+	
 }

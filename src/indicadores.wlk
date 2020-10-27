@@ -1,104 +1,71 @@
 import wollok.game.*
 import jugador.*
 
-class Indicador {
-	//ver si corresponde al jugador
-	const nivelMin = null
-	const nivelMax = null
-
-// esto lo puede pedir al personaje
-//	var property tiempo = null
-//	var property nivelActual = null
-	
-	//No le corresponde al indicador la accion
-//	method incrementaEnergia(personajePpal){ personajePpal.modificaEnergia(1)}
-//	method decrementaEnergia(personajePpal){ personajePpal.modificaEnergia(-1)}
-//	
-		
-//	method excedeNiveles(personajePpal){ 
-//		const proximoNivel = personajePpal.nivelActual() + 1 
-//		return proximoNivel.between(nivelMin,nivelMax)
-//	}
-
-	method muestraValores(vida, corazones){
-//		indicadorVida.		
-	}
-}	
-object indicadorVida inherits Indicador{
-	var property valor = 12
-//method
-}
-
-
 class Numero{
-	var property image = null //ejemplo"nro1.png"
-	var property position = null//referencia para unidad de vida game.at(9,8)
 	var property valor = null
+	var property position = null//referencia para unidad de vida game.at(9,8)
+	method image(){ return "nro" + valor.toString() + ".png"} 
 }
 
-object vidasFactory{
-	var property unidad = new Numero(image = "nro2.png", position=game.at(9,8), valor=2)
-	var property decena = new Numero(image = "nro1.png", position=game.at(8,8), valor=1)
-	var vidas = (decena.valor()*10)+unidad.valor()
-}
-
-object tiempoFactory{
-	var property unidad = new Numero(image = "nro0.png", position=game.at(9,7), valor=0)
-	var property decena = new Numero(image = "nro0.png", position=game.at(8,7), valor=0)
-	var tiempo = (decena.valor()*10)+unidad.valor()
-}
-
-
-
-
-
-object decena{
-	var property position = game.at(8,4)
-	var property image = "nro6.png"
-	const tiempoMax = 6
-	var property tiempoContador = tiempoMax
-
-	method tiempo(){ 
-		
-		tiempoContador--
-		image = "nro" + tiempoContador.toString() + ".png"
-		
+class Actualizador{
+	method update(unidad,decena,nivel){
+		unidad.valor(self.conversionUnidad(nivel))
+		decena.valor(self.conversionDecena(nivel))
 	}
+	method conversionUnidad(nivel){ return nivel % 10 }
+	method conversionDecena(nivel){ return nivel.div(10) }			
 	
 }
 
-object unidad{
-	var property position = game.at(9,4)
-	var property image = "nro0.png"
-	const tiempoMax = 9
-	var property tiempoContador = 0
-
-	method tiempo(){
-		if(game.hasVisual(unidad) && game.hasVisual(decena)){
-			game.removeVisual(unidad)
-			game.removeVisual(decena)
-		}
-		if(tiempoContador >= 0){
-			image = "nro" + tiempoContador.toString() + ".png"
-			tiempoContador--
-		}else{
-			decena.tiempo()		
-			tiempoContador = 9
-		}
-
-		game.addVisual(decena)
-		game.addVisual(self)
+object digitFactory{
+	method nuevo(nroImagen, posicion){
+		return new Numero(valor = nroImagen,position=posicion)
 	}
 }
 
+object vidas inherits Actualizador{
+	var property unidadVidas = digitFactory.nuevo(2,game.at(9,8))
+	var property decenaVidas = digitFactory.nuevo(1,game.at(8,8))
+	const property vidas = personaje.corazones()
+	method unidad(){ return unidadVidas}
+	method decena(){ return decenaVidas}
+	method digitUpdate(unidad, decena){
+		self.update(unidadVidas, decenaVidas, vidas)
+	}
+}
+object tiempoExtra inherits Actualizador{
+	var property unidadTiempoExtra = digitFactory.nuevo(0,game.at(9,7))
+	var property decenaTiempoExtra = digitFactory.nuevo(0,game.at(8,7))
+	var property tiempoExtra = personaje.tiempoExtra()
+	method unidad(){ return unidadTiempoExtra}
+	method decena(){ return decenaTiempoExtra}
+	method digitUpdate(unidad, decena){
+		self.update(unidadTiempoExtra, decenaTiempoExtra, tiempoExtra)
+	}
 
-
-
-//Puede ser una imagen fija parte del fondo
+		
+}
+object timer inherits Actualizador{
+	var property unidadTiempo = digitFactory.nuevo(6,game.at(9,4))
+	var property decenaTiempo = digitFactory.nuevo(0,game.at(8,4))
+	var property tiempo = 60
+	method unidad(){ return unidadTiempo}
+	method decena(){ return decenaTiempo}
+	method digitUpdate(unidad, decena){
+		self.update(unidadTiempo, decenaTiempo, tiempo)
+	}
+	method segundero(){
+		if(tiempo>0){
+			tiempo--
+		}else{
+			tiempo=0
+		}
+		self.digitUpdate(unidadTiempo,decenaTiempo)
+	}
+}
 object tablero{
 	var property position = game.at(7,7)
 	var property image = "cartelConIndicadores.png"
-	
 }
 
 //Puede ser una imagen fija parte del fondo

@@ -11,45 +11,45 @@ class ObjetoEnTablero{
 	
 	method borrarObstaculo(){ game.removeVisual(self) }
 	
+	method impacto(){}
 }
 
 
 class Obstaculo inherits ObjetoEnTablero{
 	
 	var property energiaQueQuita = null	
-	
-}
-
-
-class Auto inherits Obstaculo {
-	
-	method impacto(){ 
+	 
+	 override method impacto(){ 
 		personaje.corazones(personaje.corazones() - energiaQueQuita)
-	}
-
-}
-
-
-class Barril inherits Obstaculo {
-		
-	method impacto(){ 
-		personaje.corazones(personaje.corazones() - energiaQueQuita)
-	}
-	
+	}	
 }
 
 object autosFactory {
 		
    method construirObstaculo() {
-   		return new Auto(position=randomizer.position(), energiaQueQuita = 2, image = "auto_rojo.png")
-   }	
+           const posicion = randomizer.position()
+
+           if (game.getObjectsIn(posicion).isEmpty()){
+   				return new Obstaculo(position=posicion, energiaQueQuita = 2, image = "auto_rojo.png")
+           }
+           else{
+               return self.construirObstaculo()
+           }
+   }
    
 }
 
 object barrilesFactory {
-		
+	
    method construirObstaculo() {
-   		return new Barril(position=randomizer.position(), energiaQueQuita = 1, image = "barril.png")
+           const posicion = randomizer.position()
+
+           if (game.getObjectsIn(posicion).isEmpty()){
+   				return new Obstaculo(position=posicion, energiaQueQuita = 2, image = "auto_rojo.png")
+           }
+           else{
+               return self.construirObstaculo()
+           }
    }	
    
 }
@@ -63,6 +63,7 @@ object generadorObstaculos{
     method nuevoObstaculo(lista) {
 		const factoryElegida = lista.get((0..lista.size() - 1).anyOne() ) 
 		const nuevoObstaculo = factoryElegida.construirObstaculo()
+		
 		
 		game.addVisual(nuevoObstaculo)
 		

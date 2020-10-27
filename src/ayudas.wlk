@@ -7,55 +7,55 @@ class AyudaSinAccion inherits ObjetoEnTablero{
 	
 	var property energiaQueSuma = null
 	
-	method impacto(){ 
+	override method impacto(){ 
 		personaje.corazones(personaje.corazones() + energiaQueSuma)
 	}
 }
-
-/*class Corazon inherits AyudaSinAccion {
-	
-	method impacto(){ 
-		personaje.corazones(personaje.corazones() + energiaQueSuma)
-	}
-}
-
-
-class Persona inherits AyudaSinAccion {
-		
-	method impacto(){ 
-		personaje.corazones(personaje.corazones() + energiaQueSuma)
-	}
-	
-}*/
 
 object corazonesFactory {
-		
-   method construirObstaculo() {
-   		return new AyudaSinAccion(position=randomizer.position(), energiaQueSuma = 1, image = "corazon1.png")
+	method construirObstaculo() {
+           const posicion = randomizer.position()
+
+           if (game.getObjectsIn(posicion).isEmpty()){
+   				return new AyudaSinAccion(position=posicion, energiaQueSuma = 1, image = "corazon1.png")			
+   		   }
+           else{
+               return self.construirObstaculo()
+           }
    }	
-   
 }
 
 object personasFactory {
-		
    method construirObstaculo() {
-   		return new AyudaSinAccion(position=randomizer.position(), energiaQueSuma = 3, image = "nazi_malo.png")
-   }	
-   
+           const posicion = randomizer.position()
+
+           if (game.getObjectsIn(posicion).isEmpty()){
+   				return new AyudaSinAccion(position=posicion, energiaQueSuma = 3, image = "nazi_malo.png")			
+   		   }
+           else{
+               return self.construirObstaculo()
+           }
+   }		   
 }
 
 class Nitro inherits ObjetoEnTablero{
 
-	method impacto(){ 
+	override method impacto(){ 
 		personaje.moverDeMas()
 	}
 
 }
 
 object nitrosFactory {
-		
-   method construirObstaculo() {
-   		return new Nitro(position=randomizer.position(), image = "nitro1.png")
-   }	
-   
+	
+	method construirObstaculo() {
+           const posicion = randomizer.position()
+
+           if (game.getObjectsIn(posicion).isEmpty()){
+   				return new Nitro(position=posicion, image = "nitro1.png")			
+   		   }
+           else{
+               return self.construirObstaculo()
+           }
+   }		 
 }

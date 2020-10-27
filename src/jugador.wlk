@@ -5,9 +5,9 @@ object personaje {
 	var property corazones = 12
 	var property tiempoPlus = 0
 	var property position = game.at(3,0)//uso 3 para pruebas solo con pista. Debe ir 5
-	var property imagen = "jugador"+nroImagen.toString()+".png"
 	var property direccion = null
 	var nroImagen = 1
+	var property image = "jugador"+nroImagen.toString()+".png"
 	
 	method mover(sentido){ 
 		direccion = sentido

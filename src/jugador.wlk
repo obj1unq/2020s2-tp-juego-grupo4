@@ -23,7 +23,7 @@ object personaje {
 		3.times({self.redibujaPersonaje()})
 	}
 	
-	method quitarEnergia(cantidad){ corazones = corazones - cantidad }
+	method modificaEnergia(cantidad){ corazones = corazones + cantidad }
 	
 	method image(){ return "jugador" + nroImagen.toString() + ".png"
 		

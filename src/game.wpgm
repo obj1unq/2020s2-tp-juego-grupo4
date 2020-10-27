@@ -11,9 +11,8 @@ program game {
 	game.height(10)
 	game.width(10)//uso 6 para la pista
 	game.boardGround("background.jpg")
-	game.onTick(3000, "NUEVO_OBSTACULO", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesObstaculos()) })
-	game.onTick(3000, "OBSTACULO_AVANZA", { generadorObstaculos.avanzar(generadorObstaculos.obstaculosGenerados()) })
-	
+	game.onTick(1000, "NUEVO_OBSTACULO", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesAyudas())})
+    game.onTick(300, "OBSTACULO_AVANZA", { generadorObstaculos.avanzar(generadorObstaculos.ayudasGeneradas())})
 	inicioDeJuego.iniciar()
 	
 	

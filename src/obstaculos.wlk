@@ -23,14 +23,18 @@ class Obstaculo inherits ObjetoEnTablero{
 
 class Auto inherits Obstaculo {
 	
-	method impacto(personajePpal){ personajePpal.impactoA(self) }
+	method impacto(){ 
+		personaje.corazones(personaje.corazones() - energiaQueQuita)
+	}
 
 }
 
 
 class Barril inherits Obstaculo {
 		
-	method impacto(personajePpal){ personajePpal.impactoA(self) }
+	method impacto(){ 
+		personaje.corazones(personaje.corazones() - energiaQueQuita)
+	}
 	
 }
 
@@ -54,7 +58,7 @@ object generadorObstaculos{
 	const property obstaculosGenerados = []
 	const property ayudasGeneradas = []
 	const property factoriesObstaculos = [ autosFactory , barrilesFactory] 
-    const property factoriesAyudas = [corazonesFactory,personasFactory]
+    const property factoriesAyudas = [corazonesFactory,personasFactory,nitrosFactory]
     
     method nuevoObstaculo(lista) {
 		const factoryElegida = lista.get((0..lista.size() - 1).anyOne() ) 

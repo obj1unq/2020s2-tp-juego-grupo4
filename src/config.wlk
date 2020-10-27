@@ -6,8 +6,6 @@ import obstaculos.*
 object inicioDeJuego {
 
 	method iniciar() {
-		//Declaracion de Objetos
-		var obstaculoAuto = new Obstaculo(energiaQueQuita=4 , image="auto_rojo.png", position=game.at(1,0))
 		
 		//Visuales
 		game.addVisual(tablero)
@@ -15,10 +13,10 @@ object inicioDeJuego {
 		game.addVisual(reloj)
 		game.addVisual(unidad)
 		game.addVisual(decena)
-		game.addVisual(obstaculoAuto)
 		config.configurarTeclas()
 		game.onTick(1000,"tiempo",{unidad.tiempo()})
-		game.onCollideDo(personaje, { obstaculo => obstaculo.impactoA(personaje)})
+		game.whenCollideDo(personaje, { obstaculo => obstaculo.impacto() })
+		
 		
 	}
 

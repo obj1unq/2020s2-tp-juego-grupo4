@@ -5,15 +5,19 @@ object personaje {
 	var property corazones = 12
 	var property tiempoPlus = 0
 	var property position = game.at(3,0)//uso 3 para pruebas solo con pista. Debe ir 5
-	 
-	var nroImagen = 0
+	var property imagen = "jugador"+nroImagen.toString()+".png"
+	var property direccion = null
+	var nroImagen = 1
 	
 	method mover(sentido){ 
+		direccion = sentido
 		const desplazamiento = self.position().x() + sentido
 		if(desplazamiento.between(1,game.width() - 4))
 			position=game.at(desplazamiento, self.position().y())
-			game.say(self,self.position().toString())
-		3.times({self.redibujaPersonaje()})
+	}
+	
+	method moverDeMas(){
+		self.mover(direccion)
 	}
 	
 	method energia(){ return corazones }
@@ -24,21 +28,6 @@ object personaje {
 	
 	method quitarEnergia(cantidad){ 
 		corazones = corazones - cantidad
-	}
-	method image(){ return "jugador" + nroImagen.toString() + ".png"
-		
-	}
-	
-	
-	method impactoA(obstaculoImpactado){
-		3.times({self.redibujaPersonaje()})
-		//self.quitarEnergia(obstaculoImpactado.energiaQueQuita())
-		//game.say(self,corazones.toString())//debug
-		//3.times({self.redibujaPersonaje()})
-		//obstaculoImpactado.borrarObstaculo()
-		//self.actualizarTablero()
-		const colisionCon = game.allVisuals().filter({colision=>colision.position()==self.position()})
-		game.say(colisionCon,self.corazones().toString())//debug
 	}
 	
 	

@@ -15,13 +15,20 @@ object abc {
 //
 //*ayuda
 // Idem obstaculos
+//	hacer metodo que accione sobre jugador para que actualice valores de corazones y tiempo extras
+
 //
 //*Indicadores
 // Verificar que funcione vidas y tiempo extra
+//   -----VER IMPORTANTE!!!! de sacar tiempoExtra y meter contador de personas que "levantamos" para sumar puntos
 //
 //*Jugador
 //	Titilar
 //	Ver que accion visual hacer cuando agarra nitro
+//	Metodos que actualicen corazones y tiempo extra
+// -----VER IMPORTANTE!! ver la posibilidad de cambiar el dibujo del personaje por un colectivo.
+
+
 //	
 ////*Indicador
 //   Mostrar timer de nitro

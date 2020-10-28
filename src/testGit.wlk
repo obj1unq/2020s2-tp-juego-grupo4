@@ -2,8 +2,11 @@ object abc {
 	//modificacion JuanM test GIT
 //	probando
 // linea4
+
+//prueba con Franco
+
 // aca esta el conflicto	
-}
+
 /// probando push y pull
 
 ///TAREAS

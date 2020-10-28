@@ -2,7 +2,7 @@ object abc {
 	//modificacion JuanM test GIT
 //	probando
 // linea4
-	
+// aca esta el conflicto	
 }
 /// probando push y pull
 

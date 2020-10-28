@@ -7,6 +7,9 @@ object abc {
 /// probando push y pull
 
 ///TAREAS
+
+//HACER TEST
+
 //*obstaculos
 // Ordenar codigo
 // Ver codigo repetido
@@ -34,3 +37,5 @@ object abc {
 //   Mostrar timer de nitro
 
 //Pantalla Final con recuento de puntos
+
+

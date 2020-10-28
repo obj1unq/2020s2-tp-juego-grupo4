@@ -1,6 +1,8 @@
+describe "Pruebas del personaje"{
 
-test "testX" {
+test "modifica valores de" {
 
 	assert.that(true)
 
+}	
 }

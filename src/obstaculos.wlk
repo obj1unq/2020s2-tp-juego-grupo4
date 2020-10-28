@@ -45,7 +45,7 @@ object barrilesFactory {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new Obstaculo(position=posicion, energiaQueQuita = 2, image = "auto_rojo.png")
+   				return new Obstaculo(position=posicion, energiaQueQuita = 2, image = "barril_f.png")
            }
            else{
                return self.construirObstaculo()
@@ -75,8 +75,9 @@ object generadorObstaculos{
 		
 	}	
 	
-	method avanzar(lista){
-		lista.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
+	method avanzar(){
+		obstaculosGenerados.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
+		ayudasGeneradas.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
 	}
 }
 

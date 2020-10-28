@@ -17,7 +17,7 @@ object corazonesFactory {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new AyudaSinAccion(position=posicion, energiaQueSuma = 1, image = "corazon1.png")			
+   				return new AyudaSinAccion(position=posicion, energiaQueSuma = 1, image = "corazon_f.png")			
    		   }
            else{
                return self.construirObstaculo()
@@ -52,7 +52,7 @@ object nitrosFactory {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new Nitro(position=posicion, image = "nitro1.png")			
+   				return new Nitro(position=posicion, image = "nitro_f.png")			
    		   }
            else{
                return self.construirObstaculo()

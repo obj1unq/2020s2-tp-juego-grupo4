@@ -11,10 +11,18 @@ object inicioDeJuego {
 		game.addVisual(tablero)
 		game.addVisual(personaje)
 		game.addVisual(reloj)
-		game.addVisual(unidad)
-		game.addVisual(decena)
+		game.addVisual(timer.unidadTiempo())
+		game.addVisual(timer.decenaTiempo())
+		game.addVisual(tiempoExtra.unidadTiempoExtra())
+		game.addVisual(tiempoExtra.decenaTiempoExtra())
+		game.addVisual(vidas.unidadVidas())
+		game.addVisual(vidas.decenaVidas())
+		
+		
+		
+		
 		config.configurarTeclas()
-		game.onTick(1000,"tiempo",{unidad.tiempo()})
+		game.onTick(1000,"tiempo",{timer.segundero()})
 		game.whenCollideDo(personaje, { obstaculo => obstaculo.impacto() })
 		
 		

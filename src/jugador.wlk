@@ -8,7 +8,7 @@ object personaje {
 	var nroImagen = 1
 	const puntajeXCorazon = 10
 	const puntajeXTiempo = 5
-	
+	var property direccion = 0
 
 	
 	method energia(){ return corazones }
@@ -17,10 +17,14 @@ object personaje {
 
 	method mover(sentido){ 
 		const desplazamiento = self.position().x() + sentido
+		direccion=sentido
 		if(desplazamiento.between(1,game.width() - 4))
 			position=game.at(desplazamiento, self.position().y())
-			game.say(self,self.position().toString())
-		3.times({self.redibujaPersonaje()})
+		
+	}
+	
+	method moverDeMas(){
+		self.mover(direccion)
 	}
 	
 	method modificaEnergia(cantidad){ corazones = corazones + cantidad }

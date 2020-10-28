@@ -13,7 +13,7 @@ program game {
 	game.boardGround("background.jpg")
 	game.onTick(1000, "NUEVO_OBSTACULO", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesObstaculos())})
 	//Debe ir cada 20 segundos. Se modifica a 1000 para pruebas
-	game.onTick(1000, "NUEVA_AYUDA", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesAyudas())})
+	game.onTick(20000, "NUEVA_AYUDA", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesAyudas())})
     //game.onTick(500, "OBSTACULO_AVANZA", { generadorObstaculos.avanzar(generadorObstaculos.obstaculosGenerados())})
 	game.onTick(500, "AYUDA_AVANZA", { generadorObstaculos.avanzar()})
 	inicioDeJuego.iniciar()

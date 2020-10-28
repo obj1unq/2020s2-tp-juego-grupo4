@@ -4,9 +4,8 @@ import wollok.game.*
 import ayudas.*
 
 class ObjetoEnTablero{
-	
 	var property position = null //referencia : game.at(1,0)
-		
+	var property energia	
 	var property image = null
 	
 	method borrarObstaculo(){ game.removeVisual(self) }
@@ -17,10 +16,10 @@ class ObjetoEnTablero{
 
 class Obstaculo inherits ObjetoEnTablero{
 	
-	var property energiaQueQuita = null	
+	
 	 
 	 override method impacto(){ 
-		personaje.corazones(personaje.corazones() - energiaQueQuita)
+		personaje.modificaEnergia(energia)
 	}	
 }
 
@@ -30,7 +29,7 @@ object autosFactory {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new Obstaculo(position=posicion, energiaQueQuita = 2, image = "auto_rojo.png")
+   				return new Obstaculo(position=posicion, energia = -4, image = "auto_rojo.png")
            }
            else{
                return self.construirObstaculo()
@@ -45,7 +44,7 @@ object barrilesFactory {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new Obstaculo(position=posicion, energiaQueQuita = 2, image = "barril_f.png")
+   				return new Obstaculo(position=posicion, energia = -2, image = "barril_f.png")
            }
            else{
                return self.construirObstaculo()

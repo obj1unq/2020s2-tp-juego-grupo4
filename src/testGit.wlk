@@ -31,7 +31,7 @@ object abc {
 //*Jugador
 //	Titilar
 //	Ver que accion visual hacer cuando agarra nitro
-//	Metodos que actualicen corazones y tiempo extra
+//	Metodos que actualicen corazones y personas
 // -----VER IMPORTANTE!! ver la posibilidad de cambiar el dibujo del personaje por un colectivo.
 
 

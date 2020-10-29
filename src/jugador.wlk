@@ -24,11 +24,6 @@ object personaje {
 		
 	}
 	
-	method updateIndicadores(){
-		vidas.updateValores()
-		pasajeros.updateValores()
-	}
-	
 	method moverDeMas(){
 		self.mover(direccion)
 	}

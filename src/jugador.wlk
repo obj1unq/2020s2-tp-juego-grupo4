@@ -20,7 +20,7 @@ object personaje {
 		direccion=sentido
 		if(desplazamiento.between(1,game.width() - 4))
 			position=game.at(desplazamiento, self.position().y())
-		self.updateIndicadores()
+		
 		
 	}
 	

@@ -14,7 +14,9 @@ class Actualizador{
 	}
 	method conversionUnidad(nivel){ return nivel % 10 }
 	method conversionDecena(nivel){ return nivel.div(10) }			
-	
+	method actualizaValores(cantidad){
+		return self.updater() + cantidad
+	}
 }
 
 object digitFactory{
@@ -26,23 +28,23 @@ object digitFactory{
 object vidas inherits Actualizador{
 	var property unidadVidas = digitFactory.nuevo(2,game.at(9,8))
 	var property decenaVidas = digitFactory.nuevo(1,game.at(8,8))
-	const property vidas = personaje.corazones()
 	method unidad(){ return unidadVidas}
 	method decena(){ return decenaVidas}
 	method digitUpdate(unidad, decena){
-		self.update(unidadVidas, decenaVidas, vidas)
+		self.update(unidadVidas, decenaVidas, self.valores())
 	}
-}
-object tiempoExtra inherits Actualizador{
-	var property unidadTiempoExtra = digitFactory.nuevo(0,game.at(9,7))
-	var property decenaTiempoExtra = digitFactory.nuevo(0,game.at(8,7))
-	var property tiempoExtra = personaje.tiempoExtra()
-	method unidad(){ return unidadTiempoExtra}
-	method decena(){ return decenaTiempoExtra}
-	method digitUpdate(unidad, decena){
-		self.update(unidadTiempoExtra, decenaTiempoExtra, tiempoExtra)
-	}
+	method valores(){ return personaje.energia()}
 
+}
+object pasajeros inherits Actualizador{
+	var property unidadPasajeros = digitFactory.nuevo(0,game.at(9,7))
+	var property decenaPasajeros = digitFactory.nuevo(0,game.at(8,7))
+	method unidad(){ return unidadPasajeros}
+	method decena(){ return decenaPasajeros}
+	method digitUpdate(unidad, decena){
+		self.update(unidadPasajeros, decenaPasajeros, self.valores())
+	}
+	method valores(){ return personaje.pasajeros()}
 		
 }
 object timer inherits Actualizador{

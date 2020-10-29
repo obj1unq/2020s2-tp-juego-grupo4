@@ -1,8 +1,0 @@
-describe "Pruebas del personaje"{
-
-test "modifica valores de" {
-
-	assert.that(true)
-
-}	
-}

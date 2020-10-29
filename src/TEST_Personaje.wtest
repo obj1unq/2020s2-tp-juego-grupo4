@@ -1,0 +1,11 @@
+import jugador.*
+
+describe "Pruebas del personaje"{
+
+test "modifica valores de corazones" {
+	assert.equals(12, personaje.energia())
+	personaje.modificaEnergia(-4)
+	assert.equals(8, personaje.energia())
+
+}	
+}

@@ -3,55 +3,8 @@ import jugador.*
 import wollok.game.*
 import ayudas.*
 
-class ObjetoEnTablero{
-	var property position = null //referencia : game.at(1,0)
-	var property energia	
-	var property image = null
-	
-	method borrarObstaculo(){ game.removeVisual(self) }
-	
-	method impacto(){}
-}
 
-
-class Obstaculo inherits ObjetoEnTablero{
-	
-	
-	 
-	 override method impacto(){ 
-		personaje.modificaEnergia(energia)
-	}	
-}
-
-object autosFactory {
-		
-   method construirObstaculo() {
-           const posicion = randomizer.position()
-
-           if (game.getObjectsIn(posicion).isEmpty()){
-   				return new Obstaculo(position=posicion, energia = -4, image = "auto_rojo.png")
-           }
-           else{
-               return self.construirObstaculo()
-           }
-   }
-   
-}
-
-object barrilesFactory {
-	
-   method construirObstaculo() {
-           const posicion = randomizer.position()
-
-           if (game.getObjectsIn(posicion).isEmpty()){
-   				return new Obstaculo(position=posicion, energia = -2, image = "barril_f.png")
-           }
-           else{
-               return self.construirObstaculo()
-           }
-   }	
-   
-}
+//////		GENERADOR DE OBSTACULOS
 
 object generadorObstaculos{ 
 	const property obstaculosGenerados = []
@@ -80,13 +33,57 @@ object generadorObstaculos{
 	}
 }
 
+
+/////		CLASES 
+
+class ObjetoEnPista{
+	
+	var property position = null //referencia : game.at(1,0)
+	var property energia 	
+	var property image = null
+	
+	method borrarObstaculo(){ game.removeVisual(self) }
+	
+	method impacto(){ 
+		personaje.modificaEnergia(energia)
+	}	
+}
+
+
+/////		FACTORIES
+
+object autosFactory {
+		
+   method construirObstaculo() {
+   		const posicion = randomizer.position()
+
+        if (game.getObjectsIn(posicion).isEmpty()){
+   			return new ObjetoEnPista(position=posicion, energia = -4, image = "auto_rojo.png")
+        }
+        else{ return self.construirObstaculo() }
+   }
+   
+}
+
+object barrilesFactory {
+	
+   method construirObstaculo() {
+   		const posicion = randomizer.position()
+
+        if (game.getObjectsIn(posicion).isEmpty()){
+   			return new ObjetoEnPista(position=posicion, energia = -2, image = "barril_f.png")
+        }
+        else{ return self.construirObstaculo() }
+   }	
+   
+}
+
+///// 		RANDOMIZER
+
 object randomizer {
 		
 	method position() {
-		return 	game.at( 
-					(1 .. game.width() - 4 ).anyOne(), game.height() - 1)
-					//(9..  game.height() - 1).anyOne()
-		//) 
+		return 	game.at( (1 .. game.width() - 4 ).anyOne(), game.height() - 1) 
 	}
 	
 	method emptyPosition() {

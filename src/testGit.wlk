@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+object abc {
+//modificacion JuanM test GIT
+//nuevo conflicto
+=======
 
 	//modificacion JuanM test GIT
+>>>>>>> branch 'master' of https://github.com/obj1unq/2020s2-tp-juego-grupo4.git
 //	probando
 // linea4
 
@@ -40,5 +46,5 @@
 //   Mostrar timer de nitro
 
 //Pantalla Final con recuento de puntos
-
+}
 

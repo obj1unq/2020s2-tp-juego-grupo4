@@ -3,21 +3,12 @@ import indicadores.*
 import jugador.*
 import obstaculos.*
 
-class AyudaSinAccion inherits ObjetoEnTablero{
-	
-	var property energiaQueSuma = null
-	
-	override method impacto(){ 
-		personaje.corazones(personaje.corazones() + energiaQueSuma)
-	}
-}
-
 object corazonesFactory {
 	method construirObstaculo() {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new AyudaSinAccion(position=posicion, energiaQueSuma = 1, image = "corazon_f.png")			
+   				return new ObjetoEnPista(position=posicion, energia = 1, image = "corazon_f.png")			
    		   }
            else{
                return self.construirObstaculo()
@@ -30,7 +21,7 @@ object personasFactory {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new AyudaSinAccion(position=posicion, energiaQueSuma = 3, image = "nazi_malo.png")			
+   				return new ObjetoEnPista(position=posicion, energia = 3, image = "nazi_malo.png")			
    		   }
            else{
                return self.construirObstaculo()
@@ -38,7 +29,7 @@ object personasFactory {
    }		   
 }
 
-class Nitro inherits ObjetoEnTablero{
+class Nitro inherits ObjetoEnPista{
 
 	override method impacto(){ 
 		personaje.moverDeMas()
@@ -52,7 +43,7 @@ object nitrosFactory {
            const posicion = randomizer.position()
 
            if (game.getObjectsIn(posicion).isEmpty()){
-   				return new Nitro(position=posicion, image = "nitro_f.png")			
+   				return new Nitro(position=posicion, image = "nitro_f.png",energia = 0)			
    		   }
            else{
                return self.construirObstaculo()

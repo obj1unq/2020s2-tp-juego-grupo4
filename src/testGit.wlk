@@ -1,5 +1,6 @@
 object abc {
-	//modificacion JuanM test GIT
+//modificacion JuanM test GIT
+//nuevo conflicto
 //	probando
 // linea4
 
@@ -40,5 +41,5 @@ object abc {
 //   Mostrar timer de nitro
 
 //Pantalla Final con recuento de puntos
-
+}
 

@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 object abc {
 //modificacion JuanM test GIT
 //nuevo conflicto
+=======
+
+	//modificacion JuanM test GIT
+>>>>>>> branch 'master' of https://github.com/obj1unq/2020s2-tp-juego-grupo4.git
 //	probando
 // linea4
 
@@ -32,7 +37,7 @@ object abc {
 //*Jugador
 //	Titilar
 //	Ver que accion visual hacer cuando agarra nitro
-//	Metodos que actualicen corazones y tiempo extra
+//	Metodos que actualicen corazones y personas
 // -----VER IMPORTANTE!! ver la posibilidad de cambiar el dibujo del personaje por un colectivo.
 
 

@@ -1,0 +1,37 @@
+import obstaculos.*
+import jugador.*
+
+test "chequear que las instancias de la clase ObjetoEnergia, que quitan energia, quiten la energia que deberian" {
+
+	const barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -4)
+	const auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -2)
+	const bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1)
+	barril.impacto(personaje)
+	auto.impacto(personaje)
+	bache.impacto(personaje)	
+	assert.equals(5, personaje.energia())	
+}
+
+test "chequear que las instancias de la clase ObjetoEnergia, que suman energia, sumen la energia que deberian"{
+	
+	const barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -4)
+	const auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -2)
+	const bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1)
+	barril.impacto(personaje)
+	auto.impacto(personaje)
+	bache.impacto(personaje)	
+	assert.equals(5, personaje.energia())
+	
+	const persona = new ObjetoEnergia(image="nazi_malo.png", energiaEfectuada = 3)
+	const corazon = new ObjetoEnergia(image="corazon_f.png", energiaEfectuada = 1)	
+	
+	persona.impacto(personaje)
+	corazon.impacto(personaje)
+	
+	assert.equals(9, personaje.energia())
+}
+
+test "chequear que las instancias de la clase ObjetoEnergia, al sumar energia, no sumen mas de 12 corazones"{
+	
+	assert.equals(1,1)
+}

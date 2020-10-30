@@ -29,7 +29,7 @@ class ObjetoEnergia inherits ObjetoEnPista {
 	var property energiaEfectuada = null
 	
 	override method impacto(alguien) {
-		alguien.impactaEnergia(self)
+		alguien.modificaEnergia(energiaEfectuada)
 	}
 	
 }

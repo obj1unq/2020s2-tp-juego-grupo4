@@ -13,8 +13,8 @@ object inicioDeJuego {
 		game.addVisual(reloj)
 		game.addVisual(timer.unidadTiempo())
 		game.addVisual(timer.decenaTiempo())
-		game.addVisual(tiempoExtra.unidadTiempoExtra())
-		game.addVisual(tiempoExtra.decenaTiempoExtra())
+//		game.addVisual(tiempoExtra.unidadTiempoExtra())
+//		game.addVisual(tiempoExtra.decenaTiempoExtra())
 		game.addVisual(vidas.unidadVidas())
 		game.addVisual(vidas.decenaVidas())
 		

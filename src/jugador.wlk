@@ -28,6 +28,15 @@ object personaje {
 		self.mover(direccion)
 	}
 	
+	//////////////////
+	////////////////// 		SE AGREGO EL METODO impactaEnergia PARA QUE NO HAYA ERROR EN GAME.
+	/////////////////
+	method impactaEnergia(obstaculo){}
+	
+	//////////////////
+	//////////////////      CAMBIARLO POR modificaEnergia(cantidad)  
+	/////////////////
+	
 	method modificaEnergia(cantidad){ corazones = corazones + cantidad }
 	
 	method image(){ return "jugador" + nroImagen.toString() + ".png"

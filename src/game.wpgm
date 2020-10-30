@@ -11,11 +11,10 @@ program game {
 	game.height(10)
 	game.width(10)//uso 6 para la pista
 	game.boardGround("background.jpg")
-	game.onTick(1000, "NUEVO_OBSTACULO", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesObstaculos())})
-	//Debe ir cada 20 segundos. Se modifica a 1000 para pruebas
-	game.onTick(1000, "NUEVA_AYUDA", { generadorObstaculos.nuevoObstaculo(generadorObstaculos.factoriesAyudas())})
-    //game.onTick(500, "OBSTACULO_AVANZA", { generadorObstaculos.avanzar(generadorObstaculos.obstaculosGenerados())})
-	game.onTick(500, "AYUDA_AVANZA", { generadorObstaculos.avanzar()})
+	game.onTick(1500, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})
+	game.onTick(10000, "NUEVO_AYUDA", { calle.generarNuevoObjeto(calle.ayudasAGenerar())})
+	game.onTick(1000, "AVANZA_OBSTACULO", { calle.avanzar()})
+    
 	inicioDeJuego.iniciar()
 	game.start()
 }

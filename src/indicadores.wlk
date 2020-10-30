@@ -15,7 +15,7 @@ class Actualizador{
 	method conversionUnidad(nivel){ return nivel % 10 }
 	method conversionDecena(nivel){ return nivel.div(10) }			
 	method actualizaValores(cantidad){
-		return self.updater() + cantidad
+		//return self.updater() + cantidad
 	}
 }
 
@@ -42,9 +42,9 @@ object pasajeros inherits Actualizador{
 	method unidad(){ return unidadPasajeros}
 	method decena(){ return decenaPasajeros}
 	method digitUpdate(unidad, decena){
-		self.update(unidadPasajeros, decenaPasajeros, self.valores())
+	//	self.update(unidadPasajeros, decenaPasajeros, self.valores())
 	}
-	method valores(){ return personaje.pasajeros()}
+//	method valores(){ return personaje.pasajeros()}
 		
 }
 object timer inherits Actualizador{

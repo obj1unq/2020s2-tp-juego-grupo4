@@ -1,93 +1,134 @@
 import indicadores.*
 import jugador.* 
 import wollok.game.*
-import ayudas.*
 
-
-//////		GENERADOR DE OBSTACULOS
-
-object generadorObstaculos{ 
-	const property obstaculosGenerados = []
-	const property ayudasGeneradas = []
-	const property factoriesObstaculos = [ autosFactory , barrilesFactory] 
-    const property factoriesAyudas = [corazonesFactory,personasFactory,nitrosFactory]
-    
-    method nuevoObstaculo(lista) {
-		const factoryElegida = lista.get((0..lista.size() - 1).anyOne() ) 
-		const nuevoObstaculo = factoryElegida.construirObstaculo()
-		
-		
-		game.addVisual(nuevoObstaculo)
-		
-		if (lista == factoriesObstaculos){
-			obstaculosGenerados.add(nuevoObstaculo)	
-		} else {
-			ayudasGeneradas.add(nuevoObstaculo)	
-		}
-		
-	}	
-	
-	method avanzar(){
-		obstaculosGenerados.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
-		ayudasGeneradas.forEach( {objetocreado => objetocreado.position(objetocreado.position().down(1)) })
-	}
-}
-
-
-/////		CLASES 
-
-class ObjetoEnPista{
+class ObjetoEnPista {
 	
 	var property position = null //referencia : game.at(1,0)
-	var property energia 	
 	var property image = null
 	
-	method borrarObstaculo(){ game.removeVisual(self) }
-	
-	method impacto(){ 
-		personaje.modificaEnergia(energia)
-	}	
-}
-
-
-/////		FACTORIES
-
-object autosFactory {
-		
-   method construirObstaculo() {
-   		const posicion = randomizer.position()
-
-        if (game.getObjectsIn(posicion).isEmpty()){
-   			return new ObjetoEnPista(position=posicion, energia = -4, image = "auto_rojo.png")
-        }
-        else{ return self.construirObstaculo() }
-   }
-   
-}
-
-object barrilesFactory {
-	
-   method construirObstaculo() {
-   		const posicion = randomizer.position()
-
-        if (game.getObjectsIn(posicion).isEmpty()){
-   			return new ObjetoEnPista(position=posicion, energia = -2, image = "barril_f.png")
-        }
-        else{ return self.construirObstaculo() }
-   }	
-   
-}
-
-///// 		RANDOMIZER
-
-object randomizer {
-		
-	method position() {
-		return 	game.at( (1 .. game.width() - 4 ).anyOne(), game.height() - 1) 
+	method efectoUnico() {
+		return false
 	}
 	
+	method impacto(alguien)
+	
+	method avanzar() {
+		position = position.down(1)
+		if(position.y() < 0) {
+			calle.limpiar(self)
+			game.removeVisual(self)
+		}
+	}
+	
+}
+
+
+class ObjetoEnergia inherits ObjetoEnPista {
+	
+	var property energiaEfectuada = null
+	
+	override method impacto(alguien) {
+		alguien.impactaEnergia(self)
+	}
+	
+}
+
+
+class ObjetoMovimiento inherits ObjetoEnPista {
+	
+	override method efectoUnico() {
+		return true
+	}
+	
+	override method impacto(alguien) {
+		alguien.moverDeMas()
+	}
+	
+}
+
+
+object calle {
+	
+const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -4)
+const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -2)
+const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1)
+const property persona = new ObjetoEnergia(image="nazi_malo.png", energiaEfectuada = 3)
+const property corazon = new ObjetoEnergia(image="corazon_f.png", energiaEfectuada = 1)	
+const property nitro = new ObjetoMovimiento(image="nitro_f.png")
+const property aceite = new ObjetoMovimiento(image="aceite.png")
+	
+const property obtaculosAGenerar = [barril, auto, bache, aceite ] //ANYONE SIRVE SOLO CON LISTA
+const property ayudasAGenerar = [persona, corazon, nitro]
+const property obtaculosGenerados = []
+const property ayudasGeneradas = []
+	
+	method generarNuevoObjeto(lista) {
+		
+		const posicion = randomizer.emptyPosition()
+        const objetoAGenerar = lista.anyOne()
+        					   //randomizer.anyObject(objetosAGenerar)
+        const objetoGenerado = factory.generate(objetoAGenerar, posicion)
+        
+        if(lista == obtaculosAGenerar ) {
+        	obtaculosGenerados.add(objetoGenerado)
+       		game.addVisual(objetoGenerado)
+        }
+        else{
+        	ayudasGeneradas.add(objetoGenerado)
+       		game.addVisual(objetoGenerado)
+        }
+        
+	}
+	
+	
+	method avanzar(){
+		
+		obtaculosGenerados.forEach( {objeto => objeto.avanzar() })
+		ayudasGeneradas.forEach( {objeto => objeto.avanzar() })
+	}
+	
+	
+	method limpiar(obj) {
+		
+		obtaculosGenerados.remove(obj)
+		ayudasGeneradas.remove(obj)
+	}
+	
+}
+
+
+object factory {
+	
+	method generate(struct, pos) {
+		return
+		if(struct.efectoUnico()) {
+			new ObjetoMovimiento(position=pos, image=struct.image())
+		}
+		else {
+			new ObjetoEnergia(position=pos, image=struct.image(), energiaEfectuada=struct.energiaEfectuada())
+		}
+	}
+	
+}
+
+
+
+object randomizer {	
+	
 	method emptyPosition() {
-		//para implementar, buscar celda libre para ubicar objeto
+		const position = game.at((1 .. game.width() - 4).anyOne(), game.height() - 1)
+		return
+		if(game.getObjectsIn(position).isEmpty()) {
+			position
+		}
+		else { 
+			self.emptyPosition()
+		}
+	}
+	
+	method anyObject(ls) {
+		return ls.anyOne()
 	}
 	
 }

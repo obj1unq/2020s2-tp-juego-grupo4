@@ -70,8 +70,26 @@ object tablero{
 	var property image = "cartelConIndicadores.png"
 }
 
+object fondo {
+	
+const property position = game.origin()
+var property image = "background1.jpg"
+
+	method alternarImagen() {
+		if(image == "background1.jpg") {
+			image = "background2.jpg"
+		}
+		else {
+			image = "background1.jpg"
+		}
+	}
+	
+}
+
 //Puede ser una imagen fija parte del fondo
 object reloj{
 	var property position = game.at(7,4)
 	var property image = "tiempo.png"
 }
+
+

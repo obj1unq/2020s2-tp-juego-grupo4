@@ -11,7 +11,7 @@ class ObjetoEnPista {
 		return false
 	}
 	
-	method impacto(alguien)
+	method impacto(alguien){}
 	
 	method avanzar() {
 		position = position.down(1)
@@ -26,7 +26,7 @@ class ObjetoEnPista {
 
 class ObjetoEnergia inherits ObjetoEnPista {
 	
-	var property energiaEfectuada = null
+	var property energiaEfectuada = 0
 	
 	override method impacto(alguien) {
 		alguien.modificaEnergia(energiaEfectuada)
@@ -50,8 +50,8 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 
 object calle {
 	
-const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -4)
-const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -2)
+const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2)
+const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4)
 const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1)
 const property persona = new ObjetoEnergia(image="nazi_malo.png", energiaEfectuada = 3)
 const property corazon = new ObjetoEnergia(image="corazon_f.png", energiaEfectuada = 1)	

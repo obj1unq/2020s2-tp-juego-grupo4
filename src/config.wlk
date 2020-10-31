@@ -8,6 +8,7 @@ object inicioDeJuego {
 	method iniciar() {
 		
 		//Visuales
+		game.addVisual(fondo)
 		game.addVisual(tablero)
 		game.addVisual(personaje)
 		game.addVisual(reloj)
@@ -21,10 +22,12 @@ object inicioDeJuego {
 		
 		
 		
+		
+		
 		config.configurarTeclas()
 		game.onTick(1000,"tiempo",{timer.segundero()})
-		game.whenCollideDo(personaje, { obstaculo => obstaculo.impacto() })
-		
+		game.whenCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
+		game.onTick(250, "Movimiento de calle", {fondo.alternarImagen()})
 		
 	}
 

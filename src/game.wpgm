@@ -10,10 +10,10 @@ program game {
 	game.title("Autos Locos")
 	game.height(10)
 	game.width(10)//uso 6 para la pista
-	game.boardGround("background.jpg")
-	game.onTick(1500, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})
+	game.onTick(800, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto([calle.auto()])})
+	game.onTick(2400, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})
 	game.onTick(10000, "NUEVO_AYUDA", { calle.generarNuevoObjeto(calle.ayudasAGenerar())})
-	game.onTick(1000, "AVANZA_OBSTACULO", { calle.avanzar()})
+	game.onTick(300, "AVANZA_OBSTACULO", { calle.avanzar()})
     
 	inicioDeJuego.iniciar()
 	game.start()

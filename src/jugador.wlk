@@ -4,7 +4,7 @@ import indicadores.*
 object personaje {
 	var property corazones = 12
 	var property tiempoExtra = 0
-	var property position = game.at(3,0)//uso 3 para pruebas solo con pista. Debe ir 5
+	var property position = game.at(3,1)//uso 3 para pruebas solo con pista. Debe ir 5
 	var nroImagen = 1
 	const puntajeXCorazon = 10
 	const puntajeXTiempo = 5

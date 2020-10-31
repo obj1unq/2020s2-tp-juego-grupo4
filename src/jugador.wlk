@@ -37,7 +37,10 @@ object personaje {
 	//////////////////      CAMBIARLO POR modificaEnergia(cantidad)  
 	/////////////////
 	
-	method modificaEnergia(cantidad){ corazones = corazones + cantidad }
+	method modificaEnergia(cantidad){ 
+		corazones = corazones - cantidad
+		vida.reducir(cantidad)
+	}
 	
 	method image(){ return "jugador" + nroImagen.toString() + ".png"
 		

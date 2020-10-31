@@ -9,25 +9,29 @@ object inicioDeJuego {
 		
 		//Visuales
 		game.addVisual(fondo)
+		game.onTick(250, "Movimiento de calle", {fondo.alternarImagen()})
+		
+		
 		game.addVisual(tablero)
 		game.addVisual(personaje)
 		game.addVisual(reloj)
-		game.addVisual(timer.unidadTiempo())
-		game.addVisual(timer.decenaTiempo())
+		
+		timer.set()
+		vida.set()
+		extraTimer.set()
+		
+//		game.addVisual(timer.unidadTiempo())
+//		game.addVisual(timer.decenaTiempo())
 //		game.addVisual(tiempoExtra.unidadTiempoExtra())
 //		game.addVisual(tiempoExtra.decenaTiempoExtra())
-		game.addVisual(vidas.unidadVidas())
-		game.addVisual(vidas.decenaVidas())
-		
-		
-		
-		
+//		game.addVisual(vidas.unidadVidas())
+//		game.addVisual(vidas.decenaVidas())
 		
 		
 		config.configurarTeclas()
-		game.onTick(1000,"tiempo",{timer.segundero()})
+		game.onTick(1000,"tiempo",{timer.reducir()})
 		game.whenCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
-		game.onTick(250, "Movimiento de calle", {fondo.alternarImagen()})
+		
 		
 	}
 

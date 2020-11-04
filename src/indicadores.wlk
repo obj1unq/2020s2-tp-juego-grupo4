@@ -1,5 +1,6 @@
 import wollok.game.*
 import jugador.*
+import config.*
 
 class Numero{
 	var property valor = null
@@ -13,38 +14,28 @@ object tablero{
 	var property image = "cartelConIndicadores.png"
 }
 
-object fondo {
-	
-const property position = game.origin()
-var property image = "background1.jpg"
-
-	method alternarImagen() {
-		if(image == "background1.jpg") {
-			image = "background2.jpg"
-		}
-		else {
-			image = "background1.jpg"
-		}
-	}
-	
-}
-
 //Puede ser una imagen fija parte del fondo
 object reloj{
 	var property position = game.at(7,4)
 	var property image = "tiempo.png"
 }
 
+object corazones{
+	var property position = game.at(11,7)
+	var property image = "corazon_f.png"
+}
+
+
+
 
 class ContadorGenerico {
-	
-var property cantidad = null	
-var property decena = new Numero()
-var property unidad = new Numero()
-const decenaPosition = null
-const unidadPosition = null
+	var property cantidad = null	
+	var property decena = new Numero()
+	var property unidad = new Numero()
+	const decenaPosition = null
+	const unidadPosition = null
 
-	method set() {
+	method iniciar() {
 		decena.position(decenaPosition)
 		unidad.position(unidadPosition)
 		self.digitUpdate()
@@ -84,13 +75,69 @@ const unidadPosition = null
 }
 
 
-
-object timer inherits ContadorGenerico(cantidad=60, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { }
-
-object extraTimer inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,7), unidadPosition=game.at(9,7)) { }
+//se setea cantidad en 5 a modo de prueba
+object timer inherits ContadorGenerico(cantidad=5, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { }
 
 object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){}
 
-// object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,7), unidadPosition=game.at(9,7)){}
+object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,7), unidadPosition=game.at(9,7)){}
+
+
+object fondo {
+	
+const property position = game.origin()
+//var property image = "background1.jpg"
+var property imagen = true //true: background1.png | false: background2.png
+var property finJuego = false
+
+
+	method alternarImagen(){
+		imagen = !imagen
+	}
+	method image(){
+		if(self.terminoJuego()){
+			self.finDeJuego()
+			return self.imagenFinDeJuego()
+		}else{
+			return self.imagenEnJuego()		
+		}
+	}
+			
+	//falta arreglar
+	method imagenEnJuego(){
+		var imagenAMostrar = null
+		if(imagen){
+			imagenAMostrar = "background2.jpg"
+		}else{
+			imagenAMostrar = "background1.jpg"
+		}	
+		self.alternarImagen()
+		return imagenAMostrar
+	}
+	
+	method imagenFinDeJuego(){ return "backgroundFinal.png" }
+		
+	method terminoJuego(){ return (timer.cantidad()==0) }
+
+	method finDeJuego(){
+		vida.decena().position(game.at(5,7))
+		vida.unidad().position(game.at(6,7))
+		
+		pasajeros.decena().position(game.at(5,5))
+		pasajeros.unidad().position(game.at(6,5))
+		
+		corazones.position(game.at(4,6))
+		
+		//saco indicadores de la vista
+		//cuando intento removerlos tira errores
+		//VER ESTE PROBLEMA. Esta es una solucion para probar el juego, no debe de ir!!!
+		reloj.position(game.at(11,0))
+		tablero.position(game.at(11,0))
+		timer.decena().position(game.at(11,1))
+		timer.unidad().position(game.at(11,2))
+		
+	}
+}
+
 
 

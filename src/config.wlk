@@ -9,16 +9,17 @@ object inicioDeJuego {
 		
 		//Visuales
 		game.addVisual(fondo)
-		game.onTick(250, "Movimiento de calle", {fondo.alternarImagen()})
+		game.onTick(400, "Movimiento de calle", {fondo.alternarImagen()})
 		
 		
 		game.addVisual(tablero)
 		game.addVisual(personaje)
 		game.addVisual(reloj)
+		game.addVisual(corazones)
 		
-		timer.set()
-		vida.set()
-		extraTimer.set()
+		timer.iniciar()
+		vida.iniciar()
+		pasajeros.iniciar()
 		
 //		game.addVisual(timer.unidadTiempo())
 //		game.addVisual(timer.decenaTiempo())
@@ -44,6 +45,10 @@ object config {
 		//movimientos
 		keyboard.left().onPressDo({personaje.mover(-1)})
     	keyboard.right().onPressDo({personaje.mover(1)})
+	}
+	method removerVisuales(){
+		game.removeVisual(tablero)
+		game.removeVisual(personaje)
 	}
 }
 

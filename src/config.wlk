@@ -31,7 +31,7 @@ object inicioDeJuego {
 		
 		config.configurarTeclas()
 		game.onTick(1000,"tiempo",{timer.reducir()})
-		game.whenCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
+		game.onCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
 		
 		
 	}

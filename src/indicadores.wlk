@@ -62,15 +62,12 @@ class ContadorGenerico {
 		}
 	}
 	
-	method reducir(cuanto) {
-		cantidad = (cantidad - cuanto).max(0)
-		self.digitUpdate()
-	}
+
 	
-	method aumentar(cuanto) {
-		cantidad = (cantidad + cuanto).max(99)
-		self.digitUpdate()
-	}
+	method modificar(cuanto) {
+        cantidad = (cantidad + cuanto).max(0).min(12)
+        self.digitUpdate()
+    }
 	
 }
 
@@ -117,7 +114,7 @@ var property finJuego = false
 	
 	method imagenFinDeJuego(){ return "backgroundFinal.png" }
 		
-	method terminoJuego(){ return (timer.cantidad()==0) }
+	method terminoJuego(){ return (timer.cantidad()==0 || vida.cantidad()==0) }
 
 	method finDeJuego(){
 		vida.decena().position(game.at(5,7))

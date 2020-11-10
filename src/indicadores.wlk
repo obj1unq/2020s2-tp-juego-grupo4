@@ -133,6 +133,10 @@ var property finJuego = false
 		timer.decena().position(game.at(11,1))
 		timer.unidad().position(game.at(11,2))
 		
+		game.removeTickEvent("NUEVO_AUTO")
+		game.removeTickEvent("NUEVO_OBSTACULO")
+		game.removeTickEvent("NUEVO_AYUDA")
+		//game.removeTickEvent("AVANZA_OBSTACULO")
 	}
 }
 

@@ -33,9 +33,15 @@ object inicioDeJuego {
 		game.onTick(1000,"tiempo",{timer.reducir()})
 		game.onCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
 		
-		
-	}
+			}
 
+//	method removerTodo(){
+//			game.removeTickEvent("NUEVO_AUTO")
+//			game.removeTickEvent("NUEVO_OBSTACULO")
+//			game.removeTickEvent("NUEVO_AYUDA")
+//			game.removeTickEvent("AVANZA_OBSTACULO")
+//		}
+	
 }
 
 

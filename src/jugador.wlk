@@ -4,10 +4,8 @@ import indicadores.*
 object personaje {
 
 	var property position = game.at(3,1)//uso 3 para pruebas solo con pista. Debe ir 5
-	
 	const puntajeXCorazon = 10
 	const puntajeXTiempo = 5
-	
 	var property direccion = 0
 	var nroImagen = 1
 	
@@ -22,25 +20,19 @@ object personaje {
 			position=game.at(desplazamiento, self.position().y())
 	}
 	
-	method moverDeMas(){
-		self.mover(direccion)
-	}
+	method moverDeMas(){ self.mover(direccion) }
 	
-	//////////////////
-	////////////////// 		SE AGREGO EL METODO impactaEnergia PARA QUE NO HAYA ERROR EN GAME.
-	/////////////////
-
 	method impactaPasajero(cantidad){ pasajeros.modificar(cantidad)}
 	
 	method modificaEnergia(cantidad){ vida.modificar(cantidad) }
 	
-	
 	method image(){ return "jugador_" + nroImagen.toString() + ".png"}
 	
 
-
 	method puntajeFinal(){ return self.conteoPuntos(vida.cantidad(),puntajeXCorazon) + self.conteoPuntos(pasajeros.cantidad(),puntajeXTiempo)}
+	
 	method conteoPuntos(puntosAcumulados,conversion){ return puntosAcumulados * conversion }
+	
 	method alternaImagen(){ 
 		if(nroImagen==0){
 			nroImagen=1

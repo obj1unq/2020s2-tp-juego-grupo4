@@ -53,6 +53,9 @@ class ContadorGenerico {
 			cantidad--
 			self.digitUpdate()
 		}
+		if(fondo.terminoJuego()){
+			fondo.pantallaFinal()
+		}
 	}
 	
 	method aumentar() {
@@ -93,7 +96,6 @@ var property finJuego = false
 	}
 	method image(){
 		if(self.terminoJuego()){
-			self.finDeJuego()
 			return self.imagenFinDeJuego()
 		}else{
 			return self.imagenEnJuego()		
@@ -133,10 +135,13 @@ var property finJuego = false
 		timer.decena().position(game.at(11,1))
 		timer.unidad().position(game.at(11,2))
 		
-		game.removeTickEvent("NUEVO_AUTO")
-		game.removeTickEvent("NUEVO_OBSTACULO")
-		game.removeTickEvent("NUEVO_AYUDA")
-		//game.removeTickEvent("AVANZA_OBSTACULO")
+		
+	}
+	
+	method pantallaFinal(){
+		game.clear()
+		game.addVisual(self)
+			
 	}
 }
 

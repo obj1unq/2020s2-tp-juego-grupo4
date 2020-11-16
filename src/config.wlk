@@ -8,10 +8,8 @@ object inicioDeJuego {
 	method iniciar() {
 		
 		//Visuales
-		game.addVisual(fondo)
 		game.onTick(400, "Movimiento de calle", {fondo.alternarImagen()})
-		
-		
+		game.addVisual(fondo)
 		game.addVisual(tablero)
 		game.addVisual(personaje)
 		game.addVisual(reloj)
@@ -21,27 +19,13 @@ object inicioDeJuego {
 		vida.iniciar()
 		pasajeros.iniciar()
 		
-//		game.addVisual(timer.unidadTiempo())
-//		game.addVisual(timer.decenaTiempo())
-//		game.addVisual(tiempoExtra.unidadTiempoExtra())
-//		game.addVisual(tiempoExtra.decenaTiempoExtra())
-//		game.addVisual(vidas.unidadVidas())
-//		game.addVisual(vidas.decenaVidas())
-		
 		
 		config.configurarTeclas()
-		game.onTick(1000,"tiempo",{timer.reducir()})
+		config.contrarreloj()
 		game.onCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
 		
 			}
 
-//	method removerTodo(){
-//			game.removeTickEvent("NUEVO_AUTO")
-//			game.removeTickEvent("NUEVO_OBSTACULO")
-//			game.removeTickEvent("NUEVO_AYUDA")
-//			game.removeTickEvent("AVANZA_OBSTACULO")
-//		}
-	
 }
 
 
@@ -56,6 +40,11 @@ object config {
 		game.removeVisual(tablero)
 		game.removeVisual(personaje)
 	}
+	method contrarreloj(){
+		game.onTick(1000,"tiempo",{timer.reducir()})
+	}
+	
+
 }
 
 

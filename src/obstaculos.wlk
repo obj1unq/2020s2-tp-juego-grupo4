@@ -6,12 +6,13 @@ class ObjetoEnPista {
 	
 	var property position = null //referencia : game.at(1,0)
 	var property image = null
-	
-	method efectoUnico() {
-		return false
+	var property objeto = null
+	 
+	method tipoDeObjeto(tipo){
+		return tipo == objeto
 	}
 	
-	method impacto(alguien){}
+	method impacto(alguien)
 	
 	method avanzar() {
 		position = position.down(1)
@@ -23,6 +24,13 @@ class ObjetoEnPista {
 	
 }
 
+class ObjetoAcumulador inherits ObjetoEnPista {
+	
+	
+	override method impacto(alguien){
+		alguien.impactaPasajero()
+	}
+}
 
 class ObjetoEnergia inherits ObjetoEnPista {
 	
@@ -37,9 +45,6 @@ class ObjetoEnergia inherits ObjetoEnPista {
 
 class ObjetoMovimiento inherits ObjetoEnPista {
 	
-	override method efectoUnico() {
-		return true
-	}
 	
 	override method impacto(alguien) {
 		alguien.moverDeMas()
@@ -47,16 +52,21 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 	
 }
 
+object energia {}
+object acumulador{}
+object movimiento{}
+
+
 
 object calle {
 	
-const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2)
-const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4)
-const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1)
-const property persona = new ObjetoEnergia(image="nazi_malo.png", energiaEfectuada = 3)
-const property corazon = new ObjetoEnergia(image="corazon_f.png", energiaEfectuada = 1)	
-const property nitro = new ObjetoMovimiento(image="nitro_f.png")
-const property aceite = new ObjetoMovimiento(image="aceite.png")
+const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia)
+const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia)
+const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
+const property corazon = new ObjetoEnergia(image="corazon_f.png", energiaEfectuada = 1,objeto=energia)
+const property persona = new ObjetoAcumulador(image="nazi_malo.png",objeto=acumulador)	
+const property nitro = new ObjetoMovimiento(image="nitro_f.png",objeto=movimiento)
+const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
 	
 const property obtaculosAGenerar = [barril, auto, bache, aceite ] //ANYONE SIRVE SOLO CON LISTA
 const property ayudasAGenerar = [persona, corazon, nitro]
@@ -102,8 +112,12 @@ object factory {
 	
 	method generate(struct, pos) {
 		return
-		if(struct.efectoUnico()) {
-			new ObjetoMovimiento(position=pos, image=struct.image())
+		if(struct.tipoDeObjeto(movimiento) ) {
+			new ObjetoMovimiento(position=pos, image=struct.image()) 
+			
+		}
+		else if(struct.tipoDeObjeto(acumulador) ){
+			new ObjetoAcumulador(position=pos, image=struct.image())
 		}
 		else {
 			new ObjetoEnergia(position=pos, image=struct.image(), energiaEfectuada=struct.energiaEfectuada())

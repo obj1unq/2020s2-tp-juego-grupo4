@@ -22,7 +22,7 @@ object personaje {
 	
 	method moverDeMas(){ self.mover(direccion) }
 	
-	method impactaPasajero(cantidad){ pasajeros.modificar(cantidad)}
+	method impactaPasajero(){ pasajeros.aumentar()}
 	
 	method modificaEnergia(cantidad){ vida.modificar(cantidad) }
 	

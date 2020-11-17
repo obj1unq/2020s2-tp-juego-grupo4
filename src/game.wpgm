@@ -12,7 +12,7 @@ program game {
 	game.width(10)
 	game.onTick(800, "NUEVO_AUTO", { calle.generarNuevoObjeto([calle.auto()])})
 	game.onTick(2400, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})
-	game.onTick(10000, "NUEVO_AYUDA", { calle.generarNuevoObjeto(calle.ayudasAGenerar())})
+	game.onTick(2000, "NUEVO_AYUDA", { calle.generarNuevoObjeto(calle.ayudasAGenerar())})
 	game.onTick(300, "AVANZA_OBSTACULO", { calle.avanzar()})
     
 	inicioDeJuego.iniciar()

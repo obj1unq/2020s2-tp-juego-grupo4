@@ -76,7 +76,7 @@ class ContadorGenerico {
 
 
 //se setea cantidad en 5 a modo de prueba
-object timer inherits ContadorGenerico(cantidad=5, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { }
+object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { }
 
 object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){}
 
@@ -125,7 +125,7 @@ var property finJuego = false
 		pasajeros.decena().position(game.at(5,5))
 		pasajeros.unidad().position(game.at(6,5))
 		
-		corazones.position(game.at(4,6))
+		corazones.position(game.at(4,7))
 		
 		//saco indicadores de la vista
 		//cuando intento removerlos tira errores
@@ -139,9 +139,14 @@ var property finJuego = false
 	}
 	
 	method pantallaFinal(){
+
 		game.clear()
 		game.addVisual(self)
-			
+		vida.iniciar()
+		pasajeros.iniciar()
+		self.finDeJuego()
+		game.addVisual(corazones)
+		
 	}
 }
 

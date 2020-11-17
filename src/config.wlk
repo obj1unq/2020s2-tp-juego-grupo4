@@ -43,7 +43,6 @@ object config {
 	method contrarreloj(){
 		game.onTick(1000,"tiempo",{timer.reducir()})
 	}
-	
 
 }
 

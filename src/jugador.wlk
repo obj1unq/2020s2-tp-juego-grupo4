@@ -1,5 +1,6 @@
 import wollok.game.*
 import indicadores.*
+import config.*
 
 object personaje {
 
@@ -21,6 +22,17 @@ object personaje {
 	}
 	
 	method moverDeMas(){ self.mover(direccion) }
+	
+	///// VER PROBLEMA , SE CIERRA CONSOLA /////////
+	////  EXPLOTA AL QUERER REMOVER ONTICK ////////
+	
+	method desactivarPerdidaDeEnergia(){ 
+		game.onTick(500, "vidaConstante", {vida.cantidad(self.energia())})
+		game.schedule(5000, game.removeTickEvent("vidaConstante"))
+	}
+	
+	////////////////////////////////////////////
+	////////////////////////////////////////////
 	
 	method impactaPasajero(){ pasajeros.aumentar()}
 	

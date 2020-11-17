@@ -116,7 +116,7 @@ var property finJuego = false
 	
 	method imagenFinDeJuego(){ return "backgroundFinal.png" }
 		
-	method terminoJuego(){ return (timer.cantidad()==0 || vida.cantidad()==0) }
+	method terminoJuego(){ return ( vida.cantidad()==0 || timer.cantidad()==0 )}
 
 	method finDeJuego(){
 		vida.decena().position(game.at(5,7))

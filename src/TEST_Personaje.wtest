@@ -1,11 +1,19 @@
 import jugador.*
+import indicadores.*
+
 
 describe "Pruebas del personaje"{
-
-test "modifica valores de corazones" {
-	assert.equals(12, personaje.energia())
-	personaje.modificaEnergia(-4)
-	assert.equals(8, personaje.energia())
-
-}	
+	
+	fixture{
+		timer.iniciar()
+		vida.iniciar()
+		pasajeros.iniciar()
+	}
+		
+	
+	test "verifica que el personaje se mueva un espacio más en el sentido que tenia" {
+		personaje.position()
+		personaje.mover(1)
+		personaje.position()
+	}	
 }

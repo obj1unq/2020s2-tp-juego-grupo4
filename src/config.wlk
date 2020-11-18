@@ -35,6 +35,7 @@ object config {
 		//movimientos
 		keyboard.left().onPressDo({personaje.mover(-1)})
     	keyboard.right().onPressDo({personaje.mover(1)})
+    	keyboard
 	}
 	method removerVisuales(){
 		game.removeVisual(tablero)

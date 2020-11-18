@@ -23,20 +23,11 @@ object personaje {
 	
 	method moverDeMas(){ self.mover(direccion) }
 	
-	///// VER PROBLEMA , SE CIERRA CONSOLA /////////
-	////  EXPLOTA AL QUERER REMOVER ONTICK ////////
-	
-	method desactivarPerdidaDeEnergia(){ 
-		game.onTick(500, "vidaConstante", {vida.cantidad(self.energia())})
-		game.schedule(5000, game.removeTickEvent("vidaConstante"))
-	}
-	
-	////////////////////////////////////////////
-	////////////////////////////////////////////
-	
 	method impactaPasajero(){ pasajeros.aumentar()}
 	
 	method modificaEnergia(cantidad){ vida.modificar(cantidad) }
+	
+	method agregarTiempo(){ timer.sumaTiempo() }
 	
 	method image(){ return "jugador_" + nroImagen.toString() + ".png"}
 	

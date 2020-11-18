@@ -17,4 +17,5 @@ program game {
     
 	inicioDeJuego.iniciar()
 	game.start()
+	
 }

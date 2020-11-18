@@ -52,10 +52,10 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 	
 }
 
-class ObjetoNitro inherits ObjetoEnPista {
+class ObjetoTiempo inherits ObjetoEnPista {
 	
 	override method impacto(alguien){
-		alguien.desactivarPerdidaDeEnergia()
+		alguien.agregarTiempo()
 	}
 }
 
@@ -65,7 +65,7 @@ class ObjetoNitro inherits ObjetoEnPista {
 object energia {}
 object acumulador{}
 object movimiento{}
-object nitrogeno{}
+object reloj{}
 
 
 
@@ -76,7 +76,7 @@ const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada 
 const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
 const property corazon = new ObjetoEnergia(image="corazon_f.png", energiaEfectuada = 1,objeto=energia)
 const property persona = new ObjetoAcumulador(image="nazi_malo.png",objeto=acumulador)	
-const property nitro = new ObjetoNitro(image="nitro_f.png",objeto=nitrogeno)
+const property nitro = new ObjetoTiempo(image="nitro_f.png",objeto=reloj)
 const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
 	
 const property obtaculosAGenerar = [barril, auto, bache, aceite ] //ANYONE SIRVE SOLO CON LISTA
@@ -130,8 +130,8 @@ object factory {
 		else if(struct.tipoDeObjeto(acumulador) ){
 			new ObjetoAcumulador(position=pos, image=struct.image())
 		}
-		else if(struct.tipoDeObjeto(nitrogeno) ){
-			new ObjetoNitro(position=pos, image=struct.image())
+		else if(struct.tipoDeObjeto(reloj) ){
+			new ObjetoTiempo(position=pos, image=struct.image())
 		}
 		else {
 			new ObjetoEnergia(position=pos, image=struct.image(), energiaEfectuada=struct.energiaEfectuada())

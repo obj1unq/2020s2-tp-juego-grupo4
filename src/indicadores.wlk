@@ -71,16 +71,55 @@ class ContadorGenerico {
         cantidad = (cantidad + cuanto).max(0).min(12)
         self.digitUpdate()
     }
+}
+
+object contadorPuntos inherits ContadorGenerico{
+	var property centena = new Numero()
 	
+	
+	override method iniciar() {
+		cantidad = pasajeros.puntaje() + vida.puntaje()
+
+		centena.position(game.at(4,3))
+		decena.position(game.at(5,3))
+		unidad.position(game.at(6,3))
+
+		self.digitUpdate()
+
+		game.addVisual(centena)
+		game.addVisual(decena)
+		game.addVisual(unidad)
+	}
+
+	override method digitUpdate() {
+		centena.valor(cantidad.div(100))
+		decena.valor((cantidad % 100).div(10))
+		unidad.valor((cantidad % 100) % 10)
+	}
+	//HACER METODO QUE SI TIENE MAS DE 999 DIBUJE UNA CORONA COMO PUNTUACION MAXIMA
 }
 
 
 //se setea cantidad en 5 a modo de prueba
-object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { }
+object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { 
+	const tiempo = 5
+	method sumaTiempo(){ cantidad +=tiempo }
+}
 
-object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){}
+object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){
+	const puntos = 12//1 para prueba
+	method puntaje(){
+		return puntos*self.cantidad()
+	}
+}
 
-object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,7), unidadPosition=game.at(9,7)){}
+object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,7), unidadPosition=game.at(9,7)){
+	const puntos = 12 // 1 para prueba
+	method puntaje(){
+		return puntos*self.cantidad()
+	}
+}
+
 
 
 object fondo {
@@ -126,6 +165,7 @@ var property finJuego = false
 		pasajeros.unidad().position(game.at(6,5))
 		
 		corazones.position(game.at(4,7))
+		contadorPuntos.iniciar()
 		
 		//saco indicadores de la vista
 		//cuando intento removerlos tira errores

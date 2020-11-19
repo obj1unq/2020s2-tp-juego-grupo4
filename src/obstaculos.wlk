@@ -29,7 +29,10 @@ class ObjetoAcumulador inherits ObjetoEnPista {
 	
 	override method impacto(alguien){
 		alguien.impactaPasajero()
+		calle.limpiar(self)
+		game.removeVisual(self)
 	}
+	
 }
 
 class ObjetoEnergia inherits ObjetoEnPista {
@@ -55,7 +58,9 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 class ObjetoTiempo inherits ObjetoEnPista {
 	
 	override method impacto(alguien){
-		alguien.agregarTiempo()
+		alguien.agregarTiempo()	
+		calle.limpiar(self)
+		game.removeVisual(self)
 	}
 }
 

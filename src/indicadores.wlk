@@ -128,15 +128,20 @@ const property position = game.origin()
 //var property image = "background1.jpg"
 var property imagen = true //true: background1.png | false: background2.png
 var property finJuego = false
+var property menu = true
 
 
 	method alternarImagen(){
 		imagen = !imagen
 	}
 	method image(){
-		if(self.terminoJuego()){
+		if(self.menu()){
+			return self.imagenMenu()
+		}
+		else if(self.terminoJuego()){
 			return self.imagenFinDeJuego()
-		}else{
+		}
+		else{
 			return self.imagenEnJuego()		
 		}
 	}
@@ -152,6 +157,8 @@ var property finJuego = false
 		self.alternarImagen()
 		return imagenAMostrar
 	}
+	
+	method imagenMenu(){ return "menuPrincipal.png"}
 	
 	method imagenFinDeJuego(){ return "backgroundFinal.png" }
 		

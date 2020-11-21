@@ -9,22 +9,11 @@ class Numero{
 }
 
 
-object tablero{
-	var property position = game.at(7,7)
-	var property image = "cartelConIndicadores.png"
-}
 
-//Puede ser una imagen fija parte del fondo
-object reloj{
-	var property position = game.at(7,4)
-	var property image = "tiempo.png"
+class Visuales{
+	var property position = null
+	var property image = null
 }
-
-object corazones{
-	var property position = game.at(11,7)
-	var property image = "corazon_f.png"
-}
-
 
 
 
@@ -79,16 +68,34 @@ object contadorPuntos inherits ContadorGenerico{
 	
 	override method iniciar() {
 		cantidad = pasajeros.puntaje() + vida.puntaje()
+		if(cantidad<1000){
+			self.puntaje()
+		}else{
+			self.puntajeMax()
+		//SONIDO
+		var maximaPuntuacion = game.sound("maximaPuntuacion.mp3")
+		maximaPuntuacion.play()
+		//SONIDO
+		
+		}
 
-		centena.position(game.at(4,3))
-		decena.position(game.at(5,3))
-		unidad.position(game.at(6,3))
+	}
+	
+	method puntajeMax(){
+		const maximo = new Visuales(position=game.at(5,2),image="corona.png")
+		game.addVisual(maximo)
+	}
+	method puntaje(){
+		centena.position(game.at(4,2))
+		decena.position(game.at(5,2))
+		unidad.position(game.at(6,2))
 
 		self.digitUpdate()
 
 		game.addVisual(centena)
 		game.addVisual(decena)
-		game.addVisual(unidad)
+		game.addVisual(unidad)		
+		
 	}
 
 	override method digitUpdate() {
@@ -107,14 +114,14 @@ object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4),
 }
 
 object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){
-	const puntos = 12//1 para prueba
+	const puntos = 10//1 para prueba
 	method puntaje(){
 		return puntos*self.cantidad()
 	}
 }
 
-object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,7), unidadPosition=game.at(9,7)){
-	const puntos = 12 // 1 para prueba
+object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,6), unidadPosition=game.at(9,6)){
+	const puntos = 1100 // 1 para prueba
 	method puntaje(){
 		return puntos*self.cantidad()
 	}
@@ -164,38 +171,14 @@ var property menu = true
 		
 	method terminoJuego(){ return ( vida.cantidad()==0 || timer.cantidad()==0 )}
 
-	method finDeJuego(){
-		vida.decena().position(game.at(5,7))
-		vida.unidad().position(game.at(6,7))
-		
-		pasajeros.decena().position(game.at(5,5))
-		pasajeros.unidad().position(game.at(6,5))
-		
-		corazones.position(game.at(4,7))
-		contadorPuntos.iniciar()
-		
-		//saco indicadores de la vista
-		//cuando intento removerlos tira errores
-		//VER ESTE PROBLEMA. Esta es una solucion para probar el juego, no debe de ir!!!
-		reloj.position(game.at(11,0))
-		tablero.position(game.at(11,0))
-		timer.decena().position(game.at(11,1))
-		timer.unidad().position(game.at(11,2))
-		
-		
-	}
-	
 	method pantallaFinal(){
 
 		game.clear()
 		game.addVisual(self)
 		vida.iniciar()
 		pasajeros.iniciar()
-		self.finDeJuego()
-		game.addVisual(corazones)
-		
+		visualesEnPantalla.finalDeJuego()
+
 	}
 }
-
-
 

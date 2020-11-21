@@ -1,12 +1,17 @@
 import indicadores.*
 import jugador.* 
 import wollok.game.*
+import config.*
 
 class ObjetoEnPista {
 	
 	var property position = null //referencia : game.at(1,0)
 	var property image = null
 	var property objeto = null
+	var property sonido = null
+	
+	
+	
 	 
 	method tipoDeObjeto(tipo){
 		return tipo == objeto
@@ -40,8 +45,13 @@ class ObjetoEnergia inherits ObjetoEnPista {
 	var property energiaEfectuada = 0
 	
 	override method impacto(alguien) {
+		//SONIDO
+		var choque = game.sound("choque.mp3")
+		choque.play()
+		//
 		alguien.modificaEnergia(energiaEfectuada)
 	}
+	
 	
 }
 
@@ -74,14 +84,16 @@ object reloj{}
 
 
 
+
+
 object calle {
 	
-const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia)
-const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia)
-const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
-const property corazon = new ObjetoEnergia(image="corazon_f.png", energiaEfectuada = 1,objeto=energia)
-const property persona = new ObjetoAcumulador(image="nazi_malo.png",objeto=acumulador)	
-const property nitro = new ObjetoTiempo(image="nitro_f.png",objeto=reloj)
+const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia);
+const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia);
+const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia);
+const property corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia);
+const property persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador)	
+const property nitro = new ObjetoTiempo(image="reloj5.png",objeto=reloj)
 const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
 	
 const property obtaculosAGenerar = [barril, auto, bache, aceite ] //ANYONE SIRVE SOLO CON LISTA

@@ -93,11 +93,11 @@ const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada 
 const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia);
 const property corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia);
 const property persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador)	
-const property nitro = new ObjetoTiempo(image="reloj5.png",objeto=reloj)
+const property tiempo = new ObjetoTiempo(image="reloj5.png",objeto=reloj)
 const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
 	
 const property obtaculosAGenerar = [barril, auto, bache, aceite ] //ANYONE SIRVE SOLO CON LISTA
-const property ayudasAGenerar = [persona, corazon, nitro]
+const property ayudasAGenerar = [persona, corazon, tiempo]
 const property obtaculosGenerados = []
 const property ayudasGeneradas = []
 	

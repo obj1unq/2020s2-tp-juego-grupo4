@@ -177,6 +177,7 @@ var property menu = true
 	method pantallaFinal(){
 
 		game.clear()
+		config.configurarTeclas()
 		game.addVisual(self)
 		vida.iniciar()
 		pasajeros.iniciar()

@@ -68,16 +68,20 @@ object contadorPuntos inherits ContadorGenerico{
 	
 	override method iniciar() {
 		cantidad = pasajeros.puntaje() + vida.puntaje()
-		if(cantidad<1000){
+		if(cantidad.between(1,1000)){
 			self.puntaje()
-		}else{
+		}
+		if(cantidad==0){
+			self.puntaje()
+			game.sound("noPuntos.mp3").play()
+			
+			}
+		if(cantidad>1000){
 			self.puntajeMax()
 		//SONIDO
-		var maximaPuntuacion = game.sound("maximaPuntuacion.mp3")
-		maximaPuntuacion.play()
+		game.sound("maximaPuntuacion.mp3").play()
 		//SONIDO
-		
-		}
+			}
 
 	}
 	
@@ -103,11 +107,10 @@ object contadorPuntos inherits ContadorGenerico{
 		decena.valor((cantidad % 100).div(10))
 		unidad.valor((cantidad % 100) % 10)
 	}
-	//HACER METODO QUE SI TIENE MAS DE 999 DIBUJE UNA CORONA COMO PUNTUACION MAXIMA
 }
 
 
-//se setea cantidad en 5 a modo de prueba
+
 object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { 
 	const tiempo = 5
 	method sumaTiempo(){ cantidad +=tiempo }
@@ -132,7 +135,7 @@ object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,
 object fondo {
 	
 const property position = game.origin()
-//var property image = "background1.jpg"
+
 var property imagen = true //true: background1.png | false: background2.png
 var property finJuego = false
 var property menu = true
@@ -153,7 +156,7 @@ var property menu = true
 		}
 	}
 			
-	//falta arreglar
+
 	method imagenEnJuego(){
 		var imagenAMostrar = null
 		if(imagen){
@@ -178,7 +181,8 @@ var property menu = true
 		vida.iniciar()
 		pasajeros.iniciar()
 		visualesEnPantalla.finalDeJuego()
-
+							
+		
 	}
 }
 

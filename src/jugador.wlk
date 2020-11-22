@@ -4,7 +4,7 @@ import config.*
 
 object personaje {
 
-	var property position = game.at(3,1)//uso 3 para pruebas solo con pista. Debe ir 5
+	var property position = game.at(3,1)//
 	const puntajeXCorazon = 10
 	const puntajeXTiempo = 5
 	var property direccion = 0

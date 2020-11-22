@@ -32,19 +32,43 @@ object inicioDeJuego {
 
 }
 
-//class Sounds{
-//	var objPista = null
-//	var property pista = null
-//	method init(){
-//		objPista=game.sound(pista)
+
+//Se le agrega s- a cada objeto para identificar que es un sonido
+
+object s_obstaculo{
+	method play(){
+		game.sound("choque.mp3").play()
+	}
+}
+object s_barril{}
+object s_corazon{
+	method play(){	
+		game.sound("corazon.mp3").play()
+	}
+}
+//}
+//object s_tiempo{
+//	var pista = game.sound("tiempo.mp3")
+//	method play(){
+//		pista.play()
+//	}
+//}
+//object s_aceite{
+//	var pista = game.sound("aceite.mp3")
+//	method play(){
+//		pista.play()
+//	}
+//}
+//object s_pasajero{
+//	var pista = game.sound("aceite.mp3")
+//	method play(){
+//		pista.play()
 //	}
 //}
 //
 //
-//object choque{
-//	var pista= new Sounds(pista="choque.mp3")
-//	pista.init()
-//}
+
+
 
 
 object visualesEnPantalla{

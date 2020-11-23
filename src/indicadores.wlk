@@ -1,6 +1,8 @@
 import wollok.game.*
 import jugador.*
 import config.*
+import obstaculos.*
+
 
 class Numero{
 	var property valor = null
@@ -117,14 +119,14 @@ object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4),
 }
 
 object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){
-	const puntos = 10//1 para prueba
+	var property puntos = 3//1 para prueba
 	method puntaje(){
 		return puntos*self.cantidad()
 	}
 }
 
 object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,6), unidadPosition=game.at(9,6)){
-	const puntos = 1100 // 1 para prueba
+	var property puntos = 5 // 1 para prueba
 	method puntaje(){
 		return puntos*self.cantidad()
 	}
@@ -182,8 +184,19 @@ var property menu = true
 		vida.iniciar()
 		pasajeros.iniciar()
 		visualesEnPantalla.finalDeJuego()
-							
-		
+	}
+	
+	method reinicio(){
+		game.clear()
+
+		calle.obtaculosGenerados().clear()
+		calle.ayudasGeneradas().clear()
+		vida.cantidad(12)
+		timer.cantidad(60)
+		pasajeros.cantidad(0)
+		fondo.menu(true)
+		game.addVisual(fondo)
+	
 	}
 }
 

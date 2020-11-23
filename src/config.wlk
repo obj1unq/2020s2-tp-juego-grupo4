@@ -23,6 +23,9 @@ object inicioDeJuego {
 		vida.iniciar()
 		pasajeros.iniciar()
 		
+		vida.puntos(5)
+		pasajeros.puntos(10)
+		
 		
 		//config.configurarTeclas()
 		config.contrarreloj()
@@ -113,17 +116,8 @@ object config {
     	keyboard.right().onPressDo({personaje.mover(1)})
     	keyboard.enter().onPressDo({fondo.menu(false)
     								inicioDeJuego.iniciar()})
-    	keyboard.r().onPressDo { 
-    		game.clear()
-    		self.configurarTeclas()
-    		fondo.menu(true)
-    		vida.cantidad(12)
-    		timer.cantidad(60)
-    		pasajeros.cantidad(0)
-    		calle.obtaculosGenerados().clear()
-			calle.ayudasGeneradas().clear()
-    		game.addVisual(fondo)
-		}
+    	keyboard.r().onPressDo ({fondo.reinicio() 
+    							self.configurarTeclas()})
 	}
 
 

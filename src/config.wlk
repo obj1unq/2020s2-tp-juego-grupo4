@@ -13,6 +13,7 @@ object inicioDeJuego {
 		//game.addVisual(fondo)
 		visualesEnPantalla.iniciar()
 
+		game.sound("interiorAuto.mp3").play()
 		
 		game.onTick(800, "NUEVO_AUTO", { calle.generarNuevoObjeto([calle.auto()])})
 		game.onTick(2000, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})

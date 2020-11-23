@@ -119,6 +119,7 @@ object config {
     		fondo.menu(true)
     		vida.cantidad(12)
     		timer.cantidad(60)
+    		pasajeros.cantidad(0)
     		calle.obtaculosGenerados().clear()
 			calle.ayudasGeneradas().clear()
     		game.addVisual(fondo)

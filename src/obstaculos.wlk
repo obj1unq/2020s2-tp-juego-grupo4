@@ -9,6 +9,7 @@ class ObjetoEnPista {
 	var property image = null
 	var property objeto = null
 	var property sonido = null
+	var property Test = false	
 	
 		 
 	method tipoDeObjeto(tipo){
@@ -21,7 +22,7 @@ class ObjetoEnPista {
 		position = position.down(1)
 		if(position.y() < 0) {
 			calle.limpiar(self)
-			game.removeVisual(self)
+			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
 		}
 	}
 	
@@ -29,12 +30,14 @@ class ObjetoEnPista {
 
 class ObjetoAcumulador inherits ObjetoEnPista {
 	
-	
 	override method impacto(alguien){
 		alguien.impactaPasajero()
-		game.sound("pasajero.mp3").play()
-		calle.limpiar(self)
-		game.removeVisual(self)
+		if(!Test){
+			game.sound("pasajero.mp3").play()
+			calle.limpiar(self)
+			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
+		}
+
 	}
 	
 }
@@ -46,43 +49,14 @@ class ObjetoEnergia inherits ObjetoEnPista {
 	override method impacto(alguien) {
 
 		alguien.modificaEnergia(energiaEfectuada)
-		
-		//game.sound(sonido.toString()).play()
-///NO ANDA
-//		sonido.play()
-
-//ESTO ANDA
-//		game.sound("choque.mp3").play()
-
-//ESTO TAMPOCO ANDA
-//	if(sonido.equals(s_obstaculo))
-//		game.sound("choque.mp3").play()
-//	if(sonido.equals(s_corazon))
-//		game.sound("corazon.mp3").play()
-//	if(sonido.equals(s_barril))
-//		game.sound("barril.mp3").play()
-
-
-//NO ANDA
-//	if(sonido===s_obstaculo)
-//		game.sound("choque.mp3").play()
-//	if(sonido===s_corazon)
-//		game.sound("corazon.mp3").play()
-//	if(sonido===s_barril)
-//		game.sound("barril.mp3").play()
-//
-
-//ESTO FUNCIONA
-	if(energiaEfectuada<0){
-		
-		//sonido.play()// NO VA
-		game.sound("choque.mp3").play()
-	}else{
-		//sonido.play()//NO VA
-		game.sound("corazon.mp3").play()
+		if(!Test){
+			if(energiaEfectuada<0){
+				game.sound("choque.mp3").play()
+			}else{
+				game.sound("corazon.mp3").play()
+			}
+		}
 	}
-	}
-	
 }
 
 
@@ -91,7 +65,8 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 	
 	override method impacto(alguien) {
 		alguien.moverDeMas()
-		game.sound("aceite.mp3").play()
+		if(!Test)	
+			game.sound("aceite.mp3").play()
 	}
 	
 }
@@ -102,10 +77,11 @@ class ObjetoTiempo inherits ObjetoEnPista {
 		
 
 		alguien.agregarTiempo()	
-		game.sound("tiempo.mp3").play()
-		calle.limpiar(self)
-		game.removeVisual(self)
-
+		if(!Test){
+			game.sound("tiempo.mp3").play()
+			calle.limpiar(self)
+			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
+		}
 	}
 }
 
@@ -136,6 +112,8 @@ const property ayudasAGenerar = [persona, corazon, tiempo]
 const property obtaculosGenerados = []
 const property ayudasGeneradas = []
 	
+	/////REVISAR USAR UNA LISTA
+	
 	method generarNuevoObjeto(lista) {
 		
 		const posicion = randomizer.emptyPosition()
@@ -145,16 +123,15 @@ const property ayudasGeneradas = []
         
         if(lista == obtaculosAGenerar ) {
         	obtaculosGenerados.add(objetoGenerado)
-       		game.addVisual(objetoGenerado)
         }
         else{
         	ayudasGeneradas.add(objetoGenerado)
-       		game.addVisual(objetoGenerado)
         }
+			game.addVisual(objetoGenerado)
         
 	}
 	
-	
+	///////////////////
 	method avanzar(){
 		
 		obtaculosGenerados.forEach( {objeto => objeto.avanzar() })
@@ -170,7 +147,7 @@ const property ayudasGeneradas = []
 	
 }
 
-
+////VERIFICAR IF - POLIMORFISMO
 object factory {
 	
 	method generate(struct, pos) {

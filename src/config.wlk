@@ -35,45 +35,6 @@ object inicioDeJuego {
 
 }
 
-
-//Se le agrega s- a cada objeto para identificar que es un sonido
-
-object s_obstaculo{
-	method play(){
-		game.sound("choque.mp3").play()
-	}
-}
-object s_barril{}
-object s_corazon{
-	method play(){	
-		game.sound("corazon.mp3").play()
-	}
-}
-//}
-//object s_tiempo{
-//	var pista = game.sound("tiempo.mp3")
-//	method play(){
-//		pista.play()
-//	}
-//}
-//object s_aceite{
-//	var pista = game.sound("aceite.mp3")
-//	method play(){
-//		pista.play()
-//	}
-//}
-//object s_pasajero{
-//	var pista = game.sound("aceite.mp3")
-//	method play(){
-//		pista.play()
-//	}
-//}
-//
-//
-
-
-
-
 object visualesEnPantalla{
 	method iniciar(){
 		const tablero = new Visuales(position = game.at(7,6),image = "cartel.png")
@@ -117,7 +78,8 @@ object config {
     	keyboard.enter().onPressDo({fondo.menu(false)
     								inicioDeJuego.iniciar()})
     	keyboard.r().onPressDo ({fondo.reinicio() 
-    							self.configurarTeclas()})
+    							//self.configurarTeclas()
+    							})
 	}
 
 

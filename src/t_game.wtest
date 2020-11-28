@@ -1,6 +1,148 @@
+import config.*
+import jugador.*
+import indicadores.*
+import obstaculos.*
+import wollok.game.*
 
-test "testX" {
+describe "Verifica modificacion de energía" {
+	const barril
+	const auto
+	const bache
+	const corazon
+	const persona	
+	const tiempo
+	const aceite
+	
+	
+	
+	fixture{
+		vida.iniciar()
+		pasajeros.iniciar()
+		
+		vida.puntos(5)
+		pasajeros.puntos(10)
+		barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia , Test = true)
+		auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia, Test = true)
+		bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia, Test = true)
+		corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia, Test = true)
+		persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador, Test = true)
+		tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus, Test = true)
+	    aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento, Test = true)
+	    
+	}
+	
+	test "personaje impacta con barril y pierde 2 corazones" {
+		assert.equals(12,vida.cantidad())
+		barril.impacto(personaje)
+		assert.equals(10,vida.cantidad())
+	}
+	
+	test "personaje impacta con auto y pierde 4 corazones" {
+		assert.equals(12,vida.cantidad())
+		auto.impacto(personaje)
+		assert.equals(8,vida.cantidad())	
+		}
+	
+	test "personaje impacta con bache y pierde 1 corazon" {
+		assert.equals(12,vida.cantidad())
+		bache.impacto(personaje)
+		assert.equals(11,vida.cantidad())	
 
-	assert.that(true)
+	}
 
+only	test "personaje impacta con mancha de aceite y se correr una posicion a la izquierda" {
+		assert.equals(game.at(3,1),personaje.position())
+		personaje.mover(-1)
+		aceite.impacto(personaje)
+		assert.equals(game.at(2,1),personaje.position())
+	}
+	
+	test "personaje impacta con mancha de aceite y se correr una posicion a la derecha" {
+		assert.equals(3,personaje.position().x())
+		personaje.direccion()
+		aceite.impacto(personaje)
+		assert.equals(4,personaje.position().x())
+	}	
+	
+	test "personaje tiene 8 corazones e impacta con un corazon y queda con 9 corazones" {
+		vida.cantidad(8)
+		corazon.impacto(personaje)
+		assert.equals(9,vida.cantidad())	
+
+	}
+	
+	test "personaje impacta con corazon,con 12 corazones. Queda con la misma cantidad" {
+		assert.equals(12,vida.cantidad())
+		corazon.impacto(personaje)
+		assert.equals(12,vida.cantidad())	
+	}
+	
+	
+	
+
+	
+	test "personaje carga un personaje e incrementa la cantidad de pasajeros" {
+		assert.equals(0,pasajeros.cantidad())
+		persona.impacto(personaje)
+		assert.equals(1,pasajeros.cantidad())	
+	}
+	
+	test "personaje tiene 5 pasajeros y carga 2 pasajero más"{
+		pasajeros.cantidad(5)
+		assert.equals(5,pasajeros.cantidad())
+		persona.impacto(personaje)
+		persona.impacto(personaje)
+		assert.equals(7,pasajeros.cantidad())	
+	}
+
+
+	
+	
+	test "personaje impacta con reloj y el tiempo se incrementa en 5 segundos" {
+		timer.cantidad(45)
+		assert.equals(45,timer.cantidad())
+		tiempo.impacto(personaje)
+		assert.equals(50,timer.cantidad())
+	}
 }
+
+/*
+describe "Verifica desplazamiento" {
+	
+	fixture{
+		
+	}
+	
+	
+}
+
+describe "verifica puntaje" {
+	
+	fixture{
+		
+	}
+	
+	test "personaje no recolecta pasajeros y pierde todas las vidas/ 0 ptos" {
+		assert.that(true)
+	}
+	
+	test "personaje recolecta 4 pasajeros y pierde todas las vidas" {
+		assert.that(true)
+	}
+	
+	test "personaje no recolecta pasajeros y se le acaba el tiempo con maximo corazones" {
+		assert.that(true)
+	}
+	
+	test "personaje no recolecta pasajeros y se le acaba el tiempo con 8 corazones" {
+		assert.that(true)
+	}
+	
+	test "personaje recolecta 4 pasajeros y se le acaba el tiempo" {
+		assert.that(true)
+	}
+	
+	test "personaje obtiene máximo puntaje/1000 ptos" {
+		assert.that(true)
+	}
+}*/

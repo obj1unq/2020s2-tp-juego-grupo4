@@ -5,8 +5,6 @@ import config.*
 object personaje {
 
 	var property position = game.at(3,1)//
-	const puntajeXCorazon = 10
-	const puntajeXTiempo = 5
 	var property direccion = 0
 	var nroImagen = 1
 	
@@ -31,18 +29,9 @@ object personaje {
 	
 	method image(){ return "jugador_" + nroImagen.toString() + ".png"}
 	
-
-	method puntajeFinal(){ return self.conteoPuntos(vida.cantidad(),puntajeXCorazon) + self.conteoPuntos(pasajeros.cantidad(),puntajeXTiempo)}
+//Arreglar puntaje
+//	method puntajeFinal(){ return self.conteoPuntos(vida.cantidad(),puntajeXCorazon) + self.conteoPuntos(pasajeros.cantidad(),puntajeXTiempo)}
 	
 	method conteoPuntos(puntosAcumulados,conversion){ return puntosAcumulados * conversion }
-	
-	method alternaImagen(){ 
-		if(nroImagen==0){
-			nroImagen=1
-		}else{
-			nroImagen=0
-		} 
-	}
-	
-	
+
 }

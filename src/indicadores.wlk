@@ -3,7 +3,7 @@ import jugador.*
 import config.*
 import obstaculos.*
 
-
+//VER CLASES UNIDAD DECENA CENTENA
 class Numero{
 	var property valor = null
 	var property position = null//referencia para unidad de vida game.at(9,8)
@@ -38,23 +38,10 @@ class ContadorGenerico {
 		decena.valor(cantidad.div(10))
 		unidad.valor(cantidad % 10)
 	}
-	
-	method reducir() {
-		if(cantidad > 0) {
-			cantidad--
-			self.digitUpdate()
-		}
-		if(fondo.terminoJuego()){
-			fondo.pantallaFinal()
-		}
-	}
-	
-	method aumentar() {
-		if(cantidad < 99) {
-			cantidad++
-			self.digitUpdate()
-		}
-	}
+	//REVISAR AUMENTAR Y REDUCIR
+
+	//VER DE SACAR AUMENTAR Y PASARLO A PASAJEROS
+
 	
 
 	
@@ -81,7 +68,7 @@ object contadorPuntos inherits ContadorGenerico{
 		if(cantidad>1000){
 			self.puntajeMax()
 		//SONIDO
-		game.sound("maximaPuntuacion.mp3").play()
+			game.sound("maximaPuntuacion.mp3").play()
 		//SONIDO
 			}
 
@@ -116,6 +103,16 @@ object contadorPuntos inherits ContadorGenerico{
 object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { 
 	const tiempo = 5
 	method sumaTiempo(){ cantidad +=tiempo }
+
+	method reducir() {
+		if(cantidad > 0) {
+			cantidad--
+			self.digitUpdate()
+		}
+		if(fondo.terminoJuego()){
+			fondo.pantallaFinal()
+		}
+	}	
 }
 
 object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){
@@ -129,6 +126,13 @@ object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,
 	var property puntos = 5 // 1 para prueba
 	method puntaje(){
 		return puntos*self.cantidad()
+	}
+	
+	method aumentar() {
+		if(cantidad < 99) {
+			cantidad++
+			self.digitUpdate()
+		}
 	}
 }
 
@@ -188,7 +192,7 @@ var property menu = true
 	
 	method reinicio(){
 		game.clear()
-
+		config.configurarTeclas()
 		calle.obtaculosGenerados().clear()
 		calle.ayudasGeneradas().clear()
 		vida.cantidad(12)

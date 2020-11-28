@@ -50,7 +50,7 @@ describe "Verifica modificacion de energía" {
 
 	}
 
-only	test "personaje impacta con mancha de aceite y se correr una posicion a la izquierda" {
+	test "personaje impacta con mancha de aceite y se correr una posicion a la izquierda" {
 		assert.equals(game.at(3,1),personaje.position())
 		personaje.mover(-1)
 		aceite.impacto(personaje)

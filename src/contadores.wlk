@@ -12,19 +12,13 @@ class Numero{
 
 
 
-class Visuales{
-	var property position = null
-	var property image = null
-}
-
-
-
 class ContadorGenerico {
 	var property cantidad = null	
 	var property decena = new Numero()
 	var property unidad = new Numero()
 	const decenaPosition = null
 	const unidadPosition = null
+	var property puntos = null
 
 	method iniciar() {
 		decena.position(decenaPosition)
@@ -38,12 +32,16 @@ class ContadorGenerico {
 		decena.valor(cantidad.div(10))
 		unidad.valor(cantidad % 10)
 	}
-	//REVISAR AUMENTAR Y REDUCIR
+	//Se deja reducir en el contador generico porq se usa tanto en el timer 
+	//como en los corazones
 
-	//VER DE SACAR AUMENTAR Y PASARLO A PASAJEROS
-
+	method reducir() {
+		if(cantidad > 0) {
+			cantidad--
+			self.digitUpdate()
+		}
 	
-
+	}
 	
 	method modificar(cuanto) {
         cantidad = (cantidad + cuanto).max(0).min(12)
@@ -56,20 +54,21 @@ object contadorPuntos inherits ContadorGenerico{
 	
 	
 	override method iniciar() {
-		cantidad = pasajeros.puntaje() + vida.puntaje()
+		cantidad = personaje.puntajeFinal()
 		if(cantidad.between(1,1000)){
 			self.puntaje()
 		}
 		if(cantidad==0){
 			self.puntaje()
-			game.sound("noPuntos.mp3").play()
+			if(!config.testeo())
+				game.sound("noPuntos.mp3").play()
 			
 			}
 		if(cantidad>1000){
 			self.puntajeMax()
-		//SONIDO
-			game.sound("maximaPuntuacion.mp3").play()
-		//SONIDO
+			if(!config.testeo())
+				game.sound("maximaPuntuacion.mp3").play()
+		
 			}
 
 	}
@@ -104,11 +103,8 @@ object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4),
 	const tiempo = 5
 	method sumaTiempo(){ cantidad +=tiempo }
 
-	method reducir() {
-		if(cantidad > 0) {
-			cantidad--
-			self.digitUpdate()
-		}
+	override method reducir() {
+		super()
 		if(fondo.terminoJuego()){
 			fondo.pantallaFinal()
 		}
@@ -116,14 +112,14 @@ object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4),
 }
 
 object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){
-	var property puntos = 3//1 para prueba
+	
 	method puntaje(){
 		return puntos*self.cantidad()
 	}
 }
 
 object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,6), unidadPosition=game.at(9,6)){
-	var property puntos = 5 // 1 para prueba
+	
 	method puntaje(){
 		return puntos*self.cantidad()
 	}
@@ -137,70 +133,4 @@ object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,
 }
 
 
-
-object fondo {
-	
-const property position = game.origin()
-
-var property imagen = true //true: background1.png | false: background2.png
-var property finJuego = false
-var property menu = true
-
-
-	method alternarImagen(){
-		imagen = !imagen
-	}
-	method image(){
-		if(self.menu()){
-			return self.imagenMenu()
-		}
-		else if(self.terminoJuego()){
-			return self.imagenFinDeJuego()
-		}
-		else{
-			return self.imagenEnJuego()		
-		}
-	}
-			
-
-	method imagenEnJuego(){
-		var imagenAMostrar = null
-		if(imagen){
-			imagenAMostrar = "background2.jpg"
-		}else{
-			imagenAMostrar = "background1.jpg"
-		}	
-		self.alternarImagen()
-		return imagenAMostrar
-	}
-	
-	method imagenMenu(){ return "menuPrincipal.png"}
-	
-	method imagenFinDeJuego(){ return "backgroundFinal.png" }
-		
-	method terminoJuego(){ return ( vida.cantidad()==0 || timer.cantidad()==0 )}
-
-	method pantallaFinal(){
-
-		game.clear()
-		config.configurarTeclas()
-		game.addVisual(self)
-		vida.iniciar()
-		pasajeros.iniciar()
-		visualesEnPantalla.finalDeJuego()
-	}
-	
-	method reinicio(){
-		game.clear()
-		config.configurarTeclas()
-		calle.obtaculosGenerados().clear()
-		calle.ayudasGeneradas().clear()
-		vida.cantidad(12)
-		timer.cantidad(60)
-		pasajeros.cantidad(0)
-		fondo.menu(true)
-		game.addVisual(fondo)
-	
-	}
-}
 

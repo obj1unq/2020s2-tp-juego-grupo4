@@ -1,6 +1,6 @@
 import config.*
 import jugador.*
-import indicadores.*
+import contadores.*
 import obstaculos.*
 import wollok.game.*
 
@@ -16,18 +16,20 @@ describe "Verifica modificacion de energía" {
 	
 	
 	fixture{
+		config.testeo(true)
+		
 		vida.iniciar()
 		pasajeros.iniciar()
 		
 		vida.puntos(5)
 		pasajeros.puntos(10)
-		barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia , Test = true)
-		auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia, Test = true)
-		bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia, Test = true)
-		corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia, Test = true)
-		persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador, Test = true)
-		tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus, Test = true)
-	    aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento, Test = true)
+		barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia)
+		auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia)
+		bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
+		corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia)
+		persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador)
+		tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus)
+	    aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
 	    
 	}
 	

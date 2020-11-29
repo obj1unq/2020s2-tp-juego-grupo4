@@ -1,7 +1,7 @@
 import wollok.game.*
 
 import jugador.*
-import indicadores.*
+import contadores.*
 import obstaculos.*
 import config.*
 

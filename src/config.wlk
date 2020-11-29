@@ -1,19 +1,20 @@
 import wollok.game.*
-import indicadores.*
+import contadores.*
 import jugador.*
 import obstaculos.*
 
+
 object inicioDeJuego {
+	var property interior
 
 	method iniciar() {
-		
 		
 		//Visuales
 		game.onTick(600, "Movimiento de calle", {fondo.alternarImagen()})//tenia 400ms
 		//game.addVisual(fondo)
 		visualesEnPantalla.iniciar()
 
-		game.sound("interiorAuto.mp3").play()
+		
 		
 		game.onTick(800, "NUEVO_AUTO", { calle.generarNuevoObjeto([calle.auto()])})
 		game.onTick(2000, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})
@@ -31,9 +32,18 @@ object inicioDeJuego {
 		//config.configurarTeclas()
 		config.contrarreloj()
 		game.onCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
-		
-			}
+		interior = game.sound("interiorAuto.mp3")
+		if(!config.testeo()){
+			interior.shouldLoop(true)
+			interior.play()
+		}
+	}
 
+}
+
+class Visuales{
+	var property position = null
+	var property image = null
 }
 
 object visualesEnPantalla{
@@ -69,9 +79,76 @@ object visualesEnPantalla{
 }
 
 
+object fondo {
+	
+const property position = game.origin()
+
+var property imagen = true //true: background1.png | false: background2.png
+var property finJuego = false
+var property menu = true
+
+
+	method alternarImagen(){
+		imagen = !imagen
+	}
+	method image(){
+		if(self.menu()){
+			return self.imagenMenu()
+		}
+		else if(self.terminoJuego()){
+			return self.imagenFinDeJuego()
+		}
+		else{
+			return self.imagenEnJuego()		
+		}
+	}
+			
+
+	method imagenEnJuego(){
+		var imagenAMostrar = null
+		if(imagen){
+			imagenAMostrar = "background2.jpg"
+		}else{
+			imagenAMostrar = "background1.jpg"
+		}	
+		self.alternarImagen()
+		return imagenAMostrar
+	}
+	
+	method imagenMenu(){ return "menuPrincipal.png"}
+	
+	method imagenFinDeJuego(){ return "backgroundFinal.png" }
+		
+	method terminoJuego(){ return ( vida.cantidad()==0 || timer.cantidad()==0 )}
+
+	method pantallaFinal(){
+
+		game.clear()
+		config.configurarTeclas()
+		game.addVisual(self)
+		vida.iniciar()
+		pasajeros.iniciar()
+		visualesEnPantalla.finalDeJuego()
+		inicioDeJuego.interior().stop()
+	}
+	
+	method reinicio(){
+		game.clear()
+		config.configurarTeclas()
+		calle.obtaculosGenerados().clear()
+		calle.ayudasGeneradas().clear()
+		vida.cantidad(12)
+		timer.cantidad(60)
+		pasajeros.cantidad(0)
+		fondo.menu(true)
+		game.addVisual(fondo)
+	
+	}
+}
 
 object config {
-
+	var property testeo = false
+	
 	method configurarTeclas() {
 		//movimientos
 		keyboard.left().onPressDo({personaje.mover(-1)})
@@ -89,8 +166,4 @@ object config {
 	}
 
 }
-
-
-
-
 

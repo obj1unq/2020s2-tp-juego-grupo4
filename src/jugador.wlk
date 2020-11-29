@@ -1,5 +1,5 @@
 import wollok.game.*
-import indicadores.*
+import contadores.*
 import config.*
 
 object personaje {
@@ -29,7 +29,6 @@ object personaje {
 	
 	method image(){ return "jugador_" + nroImagen.toString() + ".png"}
 	
-//Arreglar puntaje
 	method puntajeFinal(){ return self.conteoPuntos(vida.cantidad(),vida.puntos()) + self.conteoPuntos(pasajeros.cantidad(),pasajeros.puntos())}
 	
 	method conteoPuntos(puntosAcumulados,conversion){ return puntosAcumulados * conversion }

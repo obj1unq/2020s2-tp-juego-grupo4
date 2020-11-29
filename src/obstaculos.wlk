@@ -1,4 +1,4 @@
-import indicadores.*
+import contadores.*
 import jugador.* 
 import wollok.game.*
 import config.*
@@ -9,7 +9,6 @@ class ObjetoEnPista {
 	var property image = null
 	var property objeto = null
 	var property sonido = null
-	var property Test = false	
 	
 		 
 	method tipoDeObjeto(tipo){
@@ -32,7 +31,7 @@ class ObjetoAcumulador inherits ObjetoEnPista {
 	
 	override method impacto(alguien){
 		alguien.impactaPasajero()
-		if(!Test){
+		if(!config.testeo()){
 			game.sound("pasajero.mp3").play()
 			calle.limpiar(self)
 			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
@@ -49,12 +48,18 @@ class ObjetoEnergia inherits ObjetoEnPista {
 	override method impacto(alguien) {
 
 		alguien.modificaEnergia(energiaEfectuada)
-		if(!Test){
-			if(energiaEfectuada<0){
+		if(energiaEfectuada<0){
+			if(!config.testeo())
 				game.sound("choque.mp3").play()
-			}else{
+		}else{
+			self.corazonesFull()
+		}
+		
+	}
+	method corazonesFull(){
+		if(personaje.energia()<12){
+			if(!config.testeo())	
 				game.sound("corazon.mp3").play()
-			}
 		}
 	}
 }
@@ -65,7 +70,7 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 	
 	override method impacto(alguien) {
 		alguien.moverDeMas()
-		if(!Test)	
+		if(!config.testeo())	
 			game.sound("aceite.mp3").play()
 	}
 	
@@ -77,7 +82,7 @@ class ObjetoTiempo inherits ObjetoEnPista {
 		
 
 		alguien.agregarTiempo()	
-		if(!Test){
+		if(!config.testeo()){
 			game.sound("tiempo.mp3").play()
 			calle.limpiar(self)
 			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
@@ -99,13 +104,13 @@ object relojPlus{}
 
 object calle {
 	
-const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia,sonido=s_obstaculo)
-const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia, sonido=s_obstaculo)
-const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia, sonido=s_obstaculo)
-const property corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia, sonido=s_corazon)
-const property persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador, sonido=game.sound("pasajero.mp3"))	
-const property tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus, sonido=game.sound("tiempo.mp3"))
-const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento, sonido =game.sound("aceite.mp3"))
+const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia)
+const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia)
+const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
+const property corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia)
+const property persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador)	
+const property tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus)
+const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
 	
 const property obtaculosAGenerar = [barril, auto, bache, aceite ] //ANYONE SIRVE SOLO CON LISTA
 const property ayudasAGenerar = [persona, corazon, tiempo]

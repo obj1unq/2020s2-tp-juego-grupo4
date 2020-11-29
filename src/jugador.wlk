@@ -4,7 +4,7 @@ import config.*
 
 object personaje {
 
-	var property position = game.at(3,1)//
+	var property position = game.at(3,1)
 	var property direccion = 0
 	var nroImagen = 1
 	
@@ -14,7 +14,7 @@ object personaje {
 	
 	method mover(sentido){ 
 		const desplazamiento = self.position().x() + sentido
-		direccion=sentido*(-1)
+		direccion=sentido
 		if(desplazamiento.between(1,game.width() - 4))
 			position=game.at(desplazamiento, self.position().y())
 	}

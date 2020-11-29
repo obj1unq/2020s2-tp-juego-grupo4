@@ -7,15 +7,14 @@ class ObjetoEnPista {
 	
 	var property position = null 
 	var property image = null
-	var property objeto = null
-	var property sonido = null
-	var property Test = false	
 	
-		 
+	var property sonido = null
+	
+	/* 	 
 	method tipoDeObjeto(tipo){
 		return tipo == objeto
 	}
-	
+	*/
 	method impacto(alguien)
 	
 	method avanzar() {
@@ -24,19 +23,21 @@ class ObjetoEnPista {
 			calle.limpiar(self)
 		}
 	}
-	
+	method init(posicion)
 }
 
 class ObjetoAcumulador inherits ObjetoEnPista {
 	
 	override method impacto(alguien){
 		alguien.impactaPasajero()
-		if(!Test){
-			game.sound("pasajero.mp3").play()
+		sonidos.reproducir("pasajero.mp3")
+		if(!config.testeo())
 			calle.limpiar(self)
-		}
-
 	}
+	override method init(posicion){
+		return new ObjetoAcumulador(position=posicion, image=self.image())
+	}
+	
 	
 }
 
@@ -47,15 +48,26 @@ class ObjetoEnergia inherits ObjetoEnPista {
 	override method impacto(alguien) {
 
 		alguien.modificaEnergia(energiaEfectuada)
-		if(!Test){
-			if(energiaEfectuada<0){
-				game.sound("choque.mp3").play()
-			}else{
-				game.sound("corazon.mp3").play()
-			}
-		}
+			
+		if(energiaEfectuada<0)
+			sonidos.reproducir("choque.mp3")
+		else
+			self.corazonesFull()
+		
+		
 	}
+	method corazonesFull(){
+		if(personaje.energia()<12)
+			sonidos.reproducir("corazon.mp3")
+	
+	}
+	
+	override method init(posicion){
+		return new ObjetoEnergia(position=posicion, image=self.image(),energiaEfectuada=self.energiaEfectuada())
+	}
+	
 }
+
 
 
 class ObjetoMovimiento inherits ObjetoEnPista {
@@ -63,8 +75,12 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 	
 	override method impacto(alguien) {
 		alguien.moverDeMas()
-		if(!Test)	
-			game.sound("aceite.mp3").play()
+			
+		sonidos.reproducir("aceite.mp3")
+	}
+	
+	override method init(posicion){
+		return new ObjetoMovimiento(position=posicion, image=self.image())
 	}
 	
 }
@@ -75,34 +91,92 @@ class ObjetoTiempo inherits ObjetoEnPista {
 		
 
 		alguien.agregarTiempo()	
-		if(!Test){
-			game.sound("tiempo.mp3").play()
+			
+		sonidos.reproducir("tiempo.mp3")
+		if(!config.testeo()){
 			calle.limpiar(self)
+
 		}
+	}
+	override method init(posicion){
+		return new ObjetoTiempo(position=posicion, image=self.image())
+	}
+	
+}
+
+
+
+class EnergiaObstaculo{
+	method energia()
+	method imagen()
+}
+object o_auto inherits EnergiaObstaculo{
+	override method energia(){
+		return -4
+	}
+	override method imagen(){
+		return "auto_rojo.png"
+	}
+}
+object o_barril inherits EnergiaObstaculo{
+	override method energia(){
+		return -2
+	}
+	override method imagen(){
+		return "barril.png"
+	}
+}
+object o_bache inherits EnergiaObstaculo{
+	override method energia(){
+		return -1
+	}
+	override method imagen(){
+		return "bache.png"
+	}
+}
+object o_corazon inherits EnergiaObstaculo{
+	override method energia(){
+		return 1
+	}
+	override method imagen(){
+		return "corazon.png"
+	}
+}
+
+class ImagenObstaculo{
+	method imagen()
+}
+
+object o_persona inherits ImagenObstaculo{
+	override method imagen(){
+		return "pasajero.png"
+	}
+}
+	
+
+object o_tiempo inherits ImagenObstaculo{
+	override method imagen(){
+		return "reloj5.png"
+	}
+}
+object o_aceite inherits ImagenObstaculo{
+	override method imagen(){
+		return "aceite.png"
 	}
 }
 
 
 
 
-object energia {}
-object acumulador{}
-object movimiento{}
-object relojPlus{}
-
-
-
-
-
 object calle {
 	
-const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia)
-const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia)
-const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
-const property corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia)
-const property persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador, sonido=game.sound("pasajero.mp3"))	
-const property tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus, sonido=game.sound("tiempo.mp3"))
-const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento, sonido =game.sound("aceite.mp3"))
+const property barril = new ObjetoEnergia(image=o_barril.imagen(), energiaEfectuada = o_barril.energia())
+const property auto = new ObjetoEnergia(image=o_auto.imagen(), energiaEfectuada = o_auto.energia())
+const property bache = new ObjetoEnergia(image=o_bache.imagen(), energiaEfectuada = o_bache.energia())
+const property corazon = new ObjetoEnergia(image=o_corazon.imagen(), energiaEfectuada = o_corazon.energia())
+const property persona = new ObjetoAcumulador(image=o_persona.imagen())	
+const property tiempo = new ObjetoTiempo(image=o_tiempo.imagen())
+const property aceite = new ObjetoMovimiento(image=o_aceite.imagen())
 	
 const property obtaculosAGenerar = [barril, auto, bache, aceite,persona, corazon, tiempo] 
 const property obtaculosGenerados = []
@@ -113,7 +187,7 @@ const property obtaculosGenerados = []
 		const posicion = randomizer.emptyPosition()
         const objetoAGenerar = lista.anyOne()
         					   
-        const objetoGenerado = factory.generate(objetoAGenerar, posicion)
+        const objetoGenerado = objetoAGenerar.init(posicion)
         
         obtaculosGenerados.add(objetoGenerado)
 		game.addVisual(objetoGenerado)
@@ -134,30 +208,6 @@ const property obtaculosGenerados = []
 	}
 	
 }
-
-////VERIFICAR IF - POLIMORFISMO
-object factory {
-	
-	method generate(struct, pos) {
-		return
-		if(struct.tipoDeObjeto(movimiento) ) {
-			new ObjetoMovimiento(position=pos, image=struct.image()) 
-			
-		}
-		else if(struct.tipoDeObjeto(acumulador) ){
-			new ObjetoAcumulador(position=pos, image=struct.image())
-		}
-		else if(struct.tipoDeObjeto(relojPlus) ){
-			new ObjetoTiempo(position=pos, image=struct.image())
-		}
-		else {
-			new ObjetoEnergia(position=pos, image=struct.image(), energiaEfectuada=struct.energiaEfectuada())
-		}
-	}
-	
-}
-
-
 
 object randomizer {	
 	

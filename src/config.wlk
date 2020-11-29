@@ -5,13 +5,12 @@ import obstaculos.*
 
 
 object inicioDeJuego {
-	var property interior
 
 	method iniciar() {
 		
 		//Visuales
 		game.onTick(600, "Movimiento de calle", {fondo.alternarImagen()})//tenia 400ms
-		//game.addVisual(fondo)
+		
 		visualesEnPantalla.iniciar()
 
 		
@@ -31,11 +30,7 @@ object inicioDeJuego {
 		//config.configurarTeclas()
 		config.contrarreloj()
 		game.onCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
-		interior = game.sound("interiorAuto.mp3")
-		if(!config.testeo()){
-			interior.shouldLoop(true)
-			interior.play()
-		}
+		sonidos.reproducirLoop("interiorAuto.mp3")
 	}
 
 }
@@ -121,26 +116,27 @@ var property menu = true
 	method terminoJuego(){ return ( vida.cantidad()==0 || timer.cantidad()==0 )}
 
 	method pantallaFinal(){
-
-		game.clear()
-		config.configurarTeclas()
+		self.limpieza()
 		game.addVisual(self)
 		vida.iniciar()
 		pasajeros.iniciar()
 		visualesEnPantalla.finalDeJuego()
-		inicioDeJuego.interior().stop()
+		sonidos.interior().stop()
 	}
 	
 	method reinicio(){
-		game.clear()
-		config.configurarTeclas()
-		calle.obtaculosGenerados().clear()
+		self.limpieza()
 		vida.cantidad(12)
 		timer.cantidad(60)
 		pasajeros.cantidad(0)
 		self.menu(true)
 		game.addVisual(self)
 	
+	}
+		method limpieza(){
+		game.clear()
+		config.configurarTeclas()
+		calle.obtaculosGenerados().clear()
 	}
 }
 
@@ -165,3 +161,20 @@ object config {
 
 }
 
+object sonidos{
+	var property interior
+
+	method reproducir(pista){
+		if(!config.testeo())
+			game.sound(pista).play()
+	}
+
+	method reproducirLoop(pista){
+		interior= game.sound(pista)
+		interior.shouldLoop(true)
+		if(!config.testeo()){
+			interior.play()
+		}
+	}
+	 
+}

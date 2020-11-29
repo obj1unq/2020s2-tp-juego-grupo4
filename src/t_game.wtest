@@ -18,18 +18,22 @@ describe "Verifica modificacion de energía" {
 	fixture{
 		config.testeo(true)
 		
+		game.height(10)
+		game.width(10)
+		
+		
 		vida.iniciar()
 		pasajeros.iniciar()
 		
 		vida.puntos(5)
 		pasajeros.puntos(10)
-		barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2,objeto=energia)
-		auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia)
-		bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
-		corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia)
-		persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador)
-		tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus)
-	    aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
+		barril = new ObjetoEnergia(image="barril.png", energiaEfectuada = -2)
+		auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4)
+		bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1)
+		corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1)
+		persona = new ObjetoAcumulador(image="pasajero.png")
+		tiempo = new ObjetoTiempo(image="reloj5.png")
+	    aceite = new ObjetoMovimiento(image="aceite.png")
 	    
 	}
 	
@@ -51,9 +55,7 @@ describe "Verifica modificacion de energía" {
 		assert.equals(11,personaje.energia())	
 
 	}
-/* 
- * NO CAMBIA EL VALOR DE X
- * 
+
 	test "personaje impacta con mancha de aceite y se correr una posicion a la izquierda" {
 		personaje.position(game.at(5,1))
 		assert.equals(5,personaje.position().x())
@@ -69,9 +71,6 @@ describe "Verifica modificacion de energía" {
 		aceite.impacto(personaje)
 		assert.equals(4,personaje.position().x())
 	}
-	* 
-	* 
-	*/	
 	
 	test "personaje tiene 8 corazones e impacta con un corazon y queda con 9 corazones" {
 		vida.cantidad(8)

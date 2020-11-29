@@ -8,8 +8,8 @@ object inicioDeJuego {
 
 	method iniciar() {
 		
-		//Visuales
-		game.onTick(600, "Movimiento de calle", {fondo.alternarImagen()})//tenia 400ms
+	
+		game.onTick(600, "Movimiento de calle", {fondo.alternarImagen()})
 		
 		visualesEnPantalla.iniciar()
 
@@ -27,7 +27,7 @@ object inicioDeJuego {
 		pasajeros.puntos(10)
 		
 		
-		//config.configurarTeclas()
+		
 		config.contrarreloj()
 		game.onCollideDo(personaje, { obstaculo => obstaculo.impacto(personaje) })
 		sonidos.reproducirLoop("interiorAuto.mp3")
@@ -101,17 +101,6 @@ var property estado = true
 				self.imagenFinDeJuego()
 			}
 	}
-	/* 
-	method fondoDeJuego(){	
-		return
-//		if(estadoJuego.terminoJuego()){
-//			""//self.imagenFinDeJuego()
-//		}
-//		else{
-			self.imagenEnJuego()		
-//		}
-	}*/
-			
 
 	method imagenEnJuego(){
 		var imagenAMostrar = null

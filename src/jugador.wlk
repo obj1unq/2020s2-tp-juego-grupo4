@@ -1,6 +1,7 @@
 import wollok.game.*
 import contadores.*
 import config.*
+import obstaculos.*
 
 object personaje {
 

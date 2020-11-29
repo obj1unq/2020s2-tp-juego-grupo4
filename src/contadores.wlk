@@ -3,57 +3,16 @@ import jugador.*
 import config.*
 import obstaculos.*
 
-//VER CLASES UNIDAD DECENA CENTENA
 class Numero{
 	var property valor = null
 	var property position = null
-	//method valorDigito()
-	//method image(){ return "nro" + self.valorDigito() + ".png"} 
-	
 	method image(){ return "nro" + valor.toString() + ".png"} 
 }
-
-/* 
-class Centena inherits Numero{
-	override method valorDigito(){
-		return
-			if(valor<100){
-				0.toString()
-			}else{
-				valor.div(100).toString()
-			}
-	}
-}
-class Decena inherits Numero{
-	override method valorDigito(){
-		return
-			if(valor<100){
-				valor.div(10).toString()
-			}else{
-				(valor % 100).div(10).toString()
-			}
-	}	
-}
-
-class Unidad inherits Numero{
-	override method valorDigito(){
-		return
-			if(valor<100){
-				(valor % 10).toString()
-			}else{
-				(valor%100).div(10).toString()
-			}
-	}	
-}
-*/
-
 
 class ContadorGenerico {
 	var property cantidad = null	
 	var property decena = new Numero()
 	var property unidad = new Numero()
-	//var property decena = new Decena(valor=cantidad)
-	//var property unidad = new Unidad(valor = cantidad)
 	const decenaPosition = null
 	const unidadPosition = null
 	var property puntos = null
@@ -70,9 +29,6 @@ class ContadorGenerico {
 		decena.valor(cantidad.div(10))
 		unidad.valor(cantidad % 10)
 	}
-	//Se deja reducir en el contador generico porq se usa tanto en el timer 
-	//como en los corazones
-
 	method reducir() {
 		if(cantidad > 0) {
 			cantidad--
@@ -93,7 +49,6 @@ class ContadorGenerico {
 
 object contadorPuntos inherits ContadorGenerico{
 	var property centena = new Numero()
-	//var property centena = new Centena(valor = cantidad)
 	
 	
 	override method iniciar() {

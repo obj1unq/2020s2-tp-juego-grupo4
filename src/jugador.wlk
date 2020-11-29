@@ -14,7 +14,7 @@ object personaje {
 	
 	method mover(sentido){ 
 		const desplazamiento = self.position().x() + sentido
-		direccion=sentido
+		direccion=sentido*(-1)
 		if(desplazamiento.between(1,game.width() - 4))
 			position=game.at(desplazamiento, self.position().y())
 	}
@@ -30,7 +30,7 @@ object personaje {
 	method image(){ return "jugador_" + nroImagen.toString() + ".png"}
 	
 //Arreglar puntaje
-//	method puntajeFinal(){ return self.conteoPuntos(vida.cantidad(),puntajeXCorazon) + self.conteoPuntos(pasajeros.cantidad(),puntajeXTiempo)}
+	method puntajeFinal(){ return self.conteoPuntos(vida.cantidad(),vida.puntos()) + self.conteoPuntos(pasajeros.cantidad(),pasajeros.puntos())}
 	
 	method conteoPuntos(puntosAcumulados,conversion){ return puntosAcumulados * conversion }
 

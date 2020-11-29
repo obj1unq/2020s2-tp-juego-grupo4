@@ -141,7 +141,12 @@ object contadorPuntos inherits ContadorGenerico{
 }
 object tiempoDeJuego{
 	method tiempo(){
-		return 10
+		return 60
+	}
+}
+object vidasIniciales{
+	method vidas(){
+		return 12
 	}
 }
 
@@ -160,7 +165,7 @@ object timer inherits ContadorGenerico(cantidad=tiempoDeJuego.tiempo(), decenaPo
 	}	
 }
 
-object vida inherits ContadorGenerico(cantidad = 12, decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){}
+object vida inherits ContadorGenerico(cantidad = vidasIniciales.vidas(), decenaPosition=game.at(8,8), unidadPosition=game.at(9,8)){}
 
 object pasajeros inherits ContadorGenerico(cantidad=0, decenaPosition=game.at(8,6), unidadPosition=game.at(9,6)){
 	

@@ -147,7 +147,7 @@ object estadoJuego{
 	method reinicio(){
 		self.limpieza()
 		fondo.estado(true)
-		vida.cantidad(12)
+		vida.cantidad(vidasIniciales.vidas())
 		timer.cantidad(tiempoDeJuego.tiempo())
 		pasajeros.cantidad(0)
 		fondo.menu(true)

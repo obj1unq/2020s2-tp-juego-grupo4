@@ -58,7 +58,7 @@ class ObjetoEnergia inherits ObjetoEnPista {
 	}
 	
 	override method init(posicion){
-		return new ObjetoEnergia(position=posicion, image=self.image(),energiaEfectuada=self.energiaEfectuada())
+		return new ObjetoEnergia(position=posicion, image=self.image(),energiaEfectuada=energiaEfectuada)
 	}
 	
 }
@@ -200,7 +200,8 @@ const property obtaculosGenerados = []
 	method limpiar(obj) {
 		
 		obtaculosGenerados.remove(obj)
-		game.removeVisual(obj)
+		if(game.hasVisual(obj))
+			game.removeVisual(obj)
 	}
 	method limpiezaObstaculosGenerados(){
 		obtaculosGenerados.clear()

@@ -17,8 +17,7 @@ object inicioDeJuego {
 		
 		
 		game.onTick(800, "NUEVO_AUTO", { calle.generarNuevoObjeto([calle.auto()])})
-		game.onTick(2000, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})
-		game.onTick(2000, "NUEVO_AYUDA", { calle.generarNuevoObjeto(calle.ayudasAGenerar())})
+		game.onTick(1000, "NUEVO_OBSTACULO", { calle.generarNuevoObjeto(calle.obtaculosAGenerar())})
 		game.onTick(300, "AVANZA_OBSTACULO", { calle.avanzar()})
 		
 		timer.iniciar()
@@ -136,12 +135,11 @@ var property menu = true
 		game.clear()
 		config.configurarTeclas()
 		calle.obtaculosGenerados().clear()
-		calle.ayudasGeneradas().clear()
 		vida.cantidad(12)
 		timer.cantidad(60)
 		pasajeros.cantidad(0)
-		fondo.menu(true)
-		game.addVisual(fondo)
+		self.menu(true)
+		game.addVisual(self)
 	
 	}
 }

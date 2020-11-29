@@ -9,6 +9,7 @@ class ObjetoEnPista {
 	var property image = null
 	var property objeto = null
 	var property sonido = null
+	var property Test = false	
 	
 		 
 	method tipoDeObjeto(tipo){
@@ -21,7 +22,6 @@ class ObjetoEnPista {
 		position = position.down(1)
 		if(position.y() < 0) {
 			calle.limpiar(self)
-			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
 		}
 	}
 	
@@ -31,10 +31,9 @@ class ObjetoAcumulador inherits ObjetoEnPista {
 	
 	override method impacto(alguien){
 		alguien.impactaPasajero()
-		if(!config.testeo()){
+		if(!Test){
 			game.sound("pasajero.mp3").play()
 			calle.limpiar(self)
-			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
 		}
 
 	}
@@ -48,18 +47,12 @@ class ObjetoEnergia inherits ObjetoEnPista {
 	override method impacto(alguien) {
 
 		alguien.modificaEnergia(energiaEfectuada)
-		if(energiaEfectuada<0){
-			if(!config.testeo())
+		if(!Test){
+			if(energiaEfectuada<0){
 				game.sound("choque.mp3").play()
-		}else{
-			self.corazonesFull()
-		}
-		
-	}
-	method corazonesFull(){
-		if(personaje.energia()<12){
-			if(!config.testeo())	
+			}else{
 				game.sound("corazon.mp3").play()
+			}
 		}
 	}
 }
@@ -70,7 +63,7 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 	
 	override method impacto(alguien) {
 		alguien.moverDeMas()
-		if(!config.testeo())	
+		if(!Test)	
 			game.sound("aceite.mp3").play()
 	}
 	
@@ -82,10 +75,9 @@ class ObjetoTiempo inherits ObjetoEnPista {
 		
 
 		alguien.agregarTiempo()	
-		if(!config.testeo()){
+		if(!Test){
 			game.sound("tiempo.mp3").play()
 			calle.limpiar(self)
-			game.removeVisual(self)///VER DE MANDARLO A LIMPIAR CALLE
 		}
 	}
 }
@@ -108,31 +100,23 @@ const property barril = new ObjetoEnergia(image="barril.png", energiaEfectuada =
 const property auto = new ObjetoEnergia(image="auto_rojo.png", energiaEfectuada = -4,objeto=energia)
 const property bache = new ObjetoEnergia(image="bache.png", energiaEfectuada = -1,objeto=energia)
 const property corazon = new ObjetoEnergia(image="corazon.png", energiaEfectuada = 1,objeto=energia)
-const property persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador)	
-const property tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus)
-const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento)
+const property persona = new ObjetoAcumulador(image="pasajero.png",objeto=acumulador, sonido=game.sound("pasajero.mp3"))	
+const property tiempo = new ObjetoTiempo(image="reloj5.png",objeto=relojPlus, sonido=game.sound("tiempo.mp3"))
+const property aceite = new ObjetoMovimiento(image="aceite.png",objeto=movimiento, sonido =game.sound("aceite.mp3"))
 	
-const property obtaculosAGenerar = [barril, auto, bache, aceite ] //ANYONE SIRVE SOLO CON LISTA
-const property ayudasAGenerar = [persona, corazon, tiempo]
+const property obtaculosAGenerar = [barril, auto, bache, aceite,persona, corazon, tiempo] 
 const property obtaculosGenerados = []
-const property ayudasGeneradas = []
 	
-	/////REVISAR USAR UNA LISTA
 	
 	method generarNuevoObjeto(lista) {
 		
 		const posicion = randomizer.emptyPosition()
         const objetoAGenerar = lista.anyOne()
-        					   //randomizer.anyObject(objetosAGenerar)
+        					   
         const objetoGenerado = factory.generate(objetoAGenerar, posicion)
         
-        if(lista == obtaculosAGenerar ) {
-        	obtaculosGenerados.add(objetoGenerado)
-        }
-        else{
-        	ayudasGeneradas.add(objetoGenerado)
-        }
-			game.addVisual(objetoGenerado)
+        obtaculosGenerados.add(objetoGenerado)
+		game.addVisual(objetoGenerado)
         
 	}
 	
@@ -140,14 +124,13 @@ const property ayudasGeneradas = []
 	method avanzar(){
 		
 		obtaculosGenerados.forEach( {objeto => objeto.avanzar() })
-		ayudasGeneradas.forEach( {objeto => objeto.avanzar() })
 	}
 	
 	
 	method limpiar(obj) {
 		
 		obtaculosGenerados.remove(obj)
-		ayudasGeneradas.remove(obj)
+		game.removeVisual(obj)
 	}
 	
 }
@@ -189,8 +172,8 @@ object randomizer {
 		}
 	}
 	
-	method anyObject(ls) {
-		return ls.anyOne()
+	method anyObject(obj) {
+		return obj.anyOne()
 	}
 	
 }

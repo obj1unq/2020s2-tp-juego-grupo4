@@ -139,17 +139,23 @@ object contadorPuntos inherits ContadorGenerico{
 		unidad.valor((cantidad % 100) % 10)
 	}
 }
+object tiempoDeJuego{
+	method tiempo(){
+		return 10
+	}
+}
 
 
-
-object timer inherits ContadorGenerico(cantidad=30, decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { 
+object timer inherits ContadorGenerico(cantidad=tiempoDeJuego.tiempo(), decenaPosition=game.at(8,4), unidadPosition=game.at(9,4)) { 
 	const tiempo = 5
+	
 	method sumaTiempo(){ cantidad +=tiempo }
 
 	override method reducir() {
 		super()
-		if(fondo.terminoJuego()){
-			fondo.pantallaFinal()
+		if(estadoJuego.terminoJuego()){
+			estadoJuego.pantallaFinal()
+			
 		}
 	}	
 }

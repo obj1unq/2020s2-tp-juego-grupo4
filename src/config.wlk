@@ -80,22 +80,37 @@ const property position = game.origin()
 var property imagen = true //true: background1.png | false: background2.png
 var property finJuego = false
 var property menu = true
-
+var property estado = true
 
 	method alternarImagen(){
 		imagen = !imagen
 	}
 	method image(){
-		if(self.menu()){
-			return self.imagenMenu()
+		return
+		if(menu){
+			self.imagenMenu()
+		}else{
+			self.tipoFondo()
 		}
-		else if(self.terminoJuego()){
-			return self.imagenFinDeJuego()
-		}
-		else{
-			return self.imagenEnJuego()		
-		}
+	}	
+	method tipoFondo(){
+		return 
+			if(estado){
+				self.imagenEnJuego()
+			}else{
+				self.imagenFinDeJuego()
+			}
 	}
+	/* 
+	method fondoDeJuego(){	
+		return
+//		if(estadoJuego.terminoJuego()){
+//			""//self.imagenFinDeJuego()
+//		}
+//		else{
+			self.imagenEnJuego()		
+//		}
+	}*/
 			
 
 	method imagenEnJuego(){
@@ -113,11 +128,16 @@ var property menu = true
 	
 	method imagenFinDeJuego(){ return "backgroundFinal.png" }
 		
+}
+
+object estadoJuego{
+		
 	method terminoJuego(){ return ( vida.cantidad()==0 || timer.cantidad()==0 )}
 
 	method pantallaFinal(){
 		self.limpieza()
-		game.addVisual(self)
+		fondo.estado(false)
+		game.addVisual(fondo)
 		vida.iniciar()
 		pasajeros.iniciar()
 		visualesEnPantalla.finalDeJuego()
@@ -126,19 +146,23 @@ var property menu = true
 	
 	method reinicio(){
 		self.limpieza()
+		fondo.estado(true)
 		vida.cantidad(12)
-		timer.cantidad(60)
+		timer.cantidad(tiempoDeJuego.tiempo())
 		pasajeros.cantidad(0)
-		self.menu(true)
-		game.addVisual(self)
+		fondo.menu(true)
+		game.addVisual(fondo)
 	
 	}
 		method limpieza(){
-		game.clear()
-		config.configurarTeclas()
-		calle.obtaculosGenerados().clear()
+			calle.limpiezaObstaculosGenerados()
+			game.clear()
+			config.configurarTeclas()
+		
 	}
+	
 }
+
 
 object config {
 	var property testeo = false
@@ -149,9 +173,7 @@ object config {
     	keyboard.right().onPressDo({personaje.mover(1)})
     	keyboard.enter().onPressDo({fondo.menu(false)
     								inicioDeJuego.iniciar()})
-    	keyboard.r().onPressDo ({fondo.reinicio() 
-    							//self.configurarTeclas()
-    							})
+    	keyboard.r().onPressDo ({estadoJuego.reinicio()})
 	}
 
 

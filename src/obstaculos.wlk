@@ -202,6 +202,9 @@ const property obtaculosGenerados = []
 		obtaculosGenerados.remove(obj)
 		game.removeVisual(obj)
 	}
+	method limpiezaObstaculosGenerados(){
+		obtaculosGenerados.clear()
+	}
 	
 }
 

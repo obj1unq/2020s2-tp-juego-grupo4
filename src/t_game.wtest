@@ -66,10 +66,13 @@ describe "Verifica modificacion de energía" {
 	}
 	
 	test "personaje impacta con mancha de aceite y se correr una posicion a la derecha" {
-		assert.equals(3,personaje.position().x())
-		personaje.direccion()
-		aceite.impacto(personaje)
+		personaje.position(game.at(4,1))
 		assert.equals(4,personaje.position().x())
+		personaje.mover(1)
+		assert.equals(5,personaje.position().x())		
+		
+		aceite.impacto(personaje)
+		assert.equals(6,personaje.position().x())
 	}
 	
 	test "personaje tiene 8 corazones e impacta con un corazon y queda con 9 corazones" {

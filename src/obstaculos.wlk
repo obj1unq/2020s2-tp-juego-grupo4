@@ -9,13 +9,8 @@ class ObjetoEnPista {
 	var property image = null
 	
 	var property sonido = null
-	
-	/* 	 
-	method tipoDeObjeto(tipo){
-		return tipo == objeto
-	}
-	*/
-	method impacto(alguien)
+
+	method impacto(alguien){ calle.limpiar(self)}
 	
 	method avanzar() {
 		position = position.down(1)
@@ -32,7 +27,7 @@ class ObjetoAcumulador inherits ObjetoEnPista {
 		alguien.impactaPasajero()
 		sonidos.reproducir("pasajero.mp3")
 		if(!config.testeo())
-			calle.limpiar(self)
+			super(self)
 	}
 	override method init(posicion){
 		return new ObjetoAcumulador(position=posicion, image=self.image())
@@ -49,12 +44,12 @@ class ObjetoEnergia inherits ObjetoEnPista {
 
 		alguien.modificaEnergia(energiaEfectuada)
 			
-		if(energiaEfectuada<0)
+		if(energiaEfectuada<0){
 			sonidos.reproducir("choque.mp3")
-		else
+		}else{
 			self.corazonesFull()
-		
-		
+		}
+		super(self)
 	}
 	method corazonesFull(){
 		if(personaje.energia()<12)
@@ -77,6 +72,7 @@ class ObjetoMovimiento inherits ObjetoEnPista {
 		alguien.moverDeMas()
 			
 		sonidos.reproducir("aceite.mp3")
+		super(self)
 	}
 	
 	override method init(posicion){
@@ -94,7 +90,7 @@ class ObjetoTiempo inherits ObjetoEnPista {
 			
 		sonidos.reproducir("tiempo.mp3")
 		if(!config.testeo()){
-			calle.limpiar(self)
+			super(self)
 
 		}
 	}

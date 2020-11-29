@@ -29,8 +29,8 @@ object personaje {
 	
 	method image(){ return "jugador_" + nroImagen.toString() + ".png"}
 	
-	method puntajeFinal(){ return self.conteoPuntos(vida.cantidad(),vida.puntos()) + self.conteoPuntos(pasajeros.cantidad(),pasajeros.puntos())}
+	method puntajeFinal(){ return self.conteoPuntos(vida) + self.conteoPuntos(pasajeros)}
 	
-	method conteoPuntos(puntosAcumulados,conversion){ return puntosAcumulados * conversion }
+	method conteoPuntos(acumulador){ return acumulador.cantidad()*acumulador.puntos() }
 
 }

@@ -51,6 +51,7 @@ class ObjetoEnergia inherits ObjetoEnPista {
 		}
 		super(self)
 	}
+	
 	method corazonesFull(){
 		if(personaje.energia()<12)
 			sonidos.reproducir("corazon.mp3")
@@ -94,6 +95,7 @@ class ObjetoTiempo inherits ObjetoEnPista {
 
 		}
 	}
+	
 	override method init(posicion){
 		return new ObjetoTiempo(position=posicion, image=self.image())
 	}
@@ -190,7 +192,7 @@ const property obtaculosGenerados = []
         
 	}
 	
-	///////////////////
+	
 	method avanzar(){
 		
 		obtaculosGenerados.forEach( {objeto => objeto.avanzar() })

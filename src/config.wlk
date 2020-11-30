@@ -35,15 +35,15 @@ object inicioDeJuego {
 
 }
 
-class Visuales{
+class Visual{
 	var property position = null
 	var property image = null
 }
 
 object visualesEnPantalla{
 	method iniciar(){
-		const tablero = new Visuales(position = game.at(7,6),image = "cartel.png")
-		const reloj = new Visuales(position = game.at(7,4), image = "tiempo.png")
+		const tablero = new Visual(position = game.at(7,6),image = "cartel.png")
+		const reloj = new Visual(position = game.at(7,4), image = "tiempo.png")
 		game.addVisual(personaje)
 		game.addVisual(tablero)
 		game.addVisual(reloj)
@@ -52,9 +52,9 @@ object visualesEnPantalla{
 	
 	}
 	method finalDeJuego(){
-		const corazones = new Visuales(position = game.at(2,6), image = "corazon.png")
-		const pasajero = new Visuales(position = game.at(2,4), image = "pasajero.png")
-		const copa = new Visuales(position = game.at(2,2), image="copa.png")
+		const corazones = new Visual(position = game.at(2,6), image = "corazon.png")
+		const pasajero = new Visual(position = game.at(2,4), image = "pasajero.png")
+		const copa = new Visual(position = game.at(2,2), image="copa.png")
 
 		vida.decena().position(game.at(4,6))
 		vida.unidad().position(game.at(5,6))

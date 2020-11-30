@@ -72,7 +72,7 @@ object contadorPuntos inherits ContadorGenerico{
 	}
 	
 	method puntajeMax(){
-		const maximo = new Visuales(position=game.at(5,2),image="corona.png")
+		const maximo = new Visual(position=game.at(5,2),image="corona.png")
 		game.addVisual(maximo)
 	}
 	method puntajeVisuales(){
